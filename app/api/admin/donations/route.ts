@@ -31,7 +31,7 @@ export async function GET() {
       const yearVal = d.getFullYear();
 
       const monthAmount = donations
-        .filter(don => {
+        .filter((don: any) => {
           const donDate = new Date(don.createdAt);
           return donDate.getMonth() === monthVal && donDate.getFullYear() === yearVal;
         })
