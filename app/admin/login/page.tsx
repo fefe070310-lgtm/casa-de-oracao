@@ -51,7 +51,7 @@ export default function AdminLogin() {
         <SignInCard
           title="Acesso Restrito"
           subtitle="Área exclusiva para administradores da plataforma."
-          logoIcon={<img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}
+          logoIcon={<img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}
           buttonText="Entrar no Painel"
           email={email}
           password={password}

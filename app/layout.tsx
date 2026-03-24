@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   description: 'Movimento de adoração, intercessão e ensino em São José dos Campos. Projeto social Jump transformando realidades há 14 anos.',
   keywords: ['casa de oração', 'projeto jump', 'são josé dos campos', 'adoração', 'ong', 'social', 'igreja sjc'],
   icons: {
-    icon: '/logo.jpg',
-    apple: '/logo.jpg',
+    icon: '/logo.png',
+    apple: '/logo.png',
   },
 };
 

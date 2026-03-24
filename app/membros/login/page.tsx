@@ -44,7 +44,7 @@ export default function MembrosLogin() {
       <SignInCard
         title="Área do Membro"
         subtitle="Acesse seus cursos e aulas sobre o Reino de Deus."
-        logoIcon={<img src="/logo.jpg" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}
+        logoIcon={<img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}
         buttonText="Acessar Meus Cursos"
         email={email}
         password={password}

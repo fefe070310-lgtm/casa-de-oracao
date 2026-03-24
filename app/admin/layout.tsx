@@ -80,7 +80,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         boxShadow: 'var(--admin-shadow-sm)'
       }}>
         <Link href="/" className="flex items-center gap-3">
-          <img src="/logo.jpg" alt="Logo" className="h-8 w-auto rounded" />
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto rounded" />
           <span className="text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-widest" style={{
             color: 'var(--admin-accent)',
             border: '1px solid var(--admin-border)',
@@ -118,7 +118,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="p-8 hidden md:block" style={{ borderBottom: '1px solid var(--admin-border)' }}>
               <Link href="/" className="block mb-6 group">
                 <img 
-                  src="/logo.jpg" 
+                  src="/logo.png" 
                   alt="Casa de Oração" 
                   className="w-28 h-auto rounded-xl transition-transform group-hover:scale-105" 
                   style={{ boxShadow: 'var(--admin-shadow-md)' }}
