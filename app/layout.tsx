@@ -14,8 +14,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'Casa de Oração & Jump',
-  description: 'Plataforma global para a Casa de Oração e o projeto social Jump.',
+  title: 'Casa de Oração & Jump | Transformando Vidas através do Reino',
+  description: 'Movimento de adoração, intercessão e ensino em São José dos Campos. Projeto social Jump transformando realidades há 14 anos.',
+  keywords: ['casa de oração', 'projeto jump', 'são josé dos campos', 'adoração', 'ong', 'social', 'igreja sjc'],
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

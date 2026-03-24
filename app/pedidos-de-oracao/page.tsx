@@ -6,10 +6,41 @@ import { useState } from 'react';
 
 export default function PedidosOracao() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      nome: formData.get('nome'),
+      telefone: formData.get('telefone'),
+      pedido: formData.get('pedido'),
+      anonimo: formData.get('anonimo') === 'on'
+    };
+
+    try {
+      const response = await fetch('/api/prayers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: data.nome,
+          telefone: data.telefone,
+          pedido: data.pedido,
+          isPublic: !data.anonimo // Se for anonimo, isPublic = false
+        }),
+      });
+
+      if (!response.ok) throw new Error('Falha ao enviar');
+      setSubmitted(true);
+    } catch (err) {
+      setError('Ocorreu um erro ao enviar seu pedido. Tente novamente.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,7 +70,9 @@ export default function PedidosOracao() {
       {/* Formulário */}
       <section className="py-24 bg-zinc-950">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-black p-8 md:p-12 rounded-3xl border border-white/10">
+          <div className="bg-black p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500/0 via-emerald-500/50 to-emerald-500/0" />
+            
             {submitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -62,12 +95,18 @@ export default function PedidosOracao() {
               <>
                 <h3 className="text-2xl font-bold text-white mb-8 font-display text-center">Como podemos orar por você?</h3>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {error && (
+                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm text-center">
+                      {error}
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="nome" className="block text-sm font-medium text-zinc-400 mb-2">Seu Nome (Opcional)</label>
                       <input
                         type="text"
                         id="nome"
+                        name="nome"
                         className="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
                         placeholder="Como gostaria de ser chamado?"
                       />
@@ -77,6 +116,7 @@ export default function PedidosOracao() {
                       <input
                         type="tel"
                         id="telefone"
+                        name="telefone"
                         className="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
                         placeholder="Caso queira que entremos em contato"
                       />
@@ -87,6 +127,7 @@ export default function PedidosOracao() {
                     <label htmlFor="pedido" className="block text-sm font-medium text-zinc-400 mb-2">Seu Pedido de Oração</label>
                     <textarea
                       id="pedido"
+                      name="pedido"
                       required
                       rows={6}
                       className="w-full bg-zinc-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors resize-none"
@@ -95,15 +136,16 @@ export default function PedidosOracao() {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <input type="checkbox" id="anonimo" className="w-4 h-4 rounded border-white/10 bg-zinc-900 text-emerald-500 focus:ring-emerald-500/50" />
+                    <input type="checkbox" id="anonimo" name="anonimo" className="w-4 h-4 rounded border-white/10 bg-zinc-900 text-emerald-500 focus:ring-emerald-500/50" />
                     <label htmlFor="anonimo" className="text-sm text-zinc-400">Desejo que este pedido seja mantido em sigilo (apenas a liderança terá acesso).</label>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2"
+                    disabled={loading}
+                    className="w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
                   >
-                    Enviar Pedido de Oração <ArrowRight className="w-5 h-5" />
+                    {loading ? 'Enviando...' : 'Enviar Pedido de Oração'} <ArrowRight className="w-5 h-5" />
                   </button>
                 </form>
               </>

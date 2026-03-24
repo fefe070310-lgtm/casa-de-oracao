@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand-emerald: oklch(0.79 0.15 160);
+  --color-brand-cyan: oklch(0.79 0.15 200);
+  --color-brand-amber: oklch(0.79 0.15 80);
+  --color-background-dark: oklch(0.1 0 0);
+  --color-surface-dark: oklch(0.15 0 0);
+}
+
+:root {
+  --emerald-glow: rgba(16, 185, 129, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --premium-black: #030303;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-zinc-100;
+  }
+}

@@ -29,13 +29,12 @@ export default function Sobre() {
       <section className="py-24 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[600px] rounded-2xl overflow-hidden">
+            <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl shadow-red-600/10">
               <Image
-                src="https://images.unsplash.com/photo-1511649475664-e5f1d6a9462e?q=80&w=800&auto=format&fit=crop"
-                alt="Fundadores"
+                src="/fundadores.jpg"
+                alt="Guilherme e Geane Gonçalves"
                 fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                referrerPolicy="no-referrer"
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
               />
             </div>
             <motion.div
@@ -99,10 +98,6 @@ export default function Sobre() {
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
                   Adoração aos sábados (10h às 22h)
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-white/20" />
-                  Cultos aos domingos (10h)
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-white/20" />

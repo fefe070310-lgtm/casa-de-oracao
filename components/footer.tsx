@@ -7,8 +7,12 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="col-span-1 md:col-span-1">
-            <Link href="/" className="text-2xl font-bold tracking-tighter text-white mb-4 block">
-              CASA<span className="text-zinc-500">JUMP</span>
+            <Link href="/" className="block mb-6 group">
+              <img 
+                src="/logo.jpg" 
+                alt="Casa de Oração Logo" 
+                className="h-10 w-auto rounded-lg shadow-2xl transition-transform group-hover:scale-105" 
+              />
             </Link>
             <p className="text-zinc-400 text-sm leading-relaxed mb-6">
               Transformando vidas através do Reino de Deus e do amor prático ao próximo.

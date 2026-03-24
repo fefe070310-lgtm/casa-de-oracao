@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ------------------------------------------------
+// ÁREA DE MEMBROS / USUÁRIOS
+// ------------------------------------------------
+
+enum Role {
+  USER
+  ADMIN
+  LEADER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  city      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  comments        Comment[]
+  progress        UserProgress[]
+  donations       Donation[]
+  events          EventRegistration[]
+  blogPosts       BlogPost[]
+}
+
+// ------------------------------------------------
+// SISTEMA DE LEADS (Cadastro, Voluntariado, etc)
+// ------------------------------------------------
+
+model Lead {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  city      String?
+  interest  String   // Ex: 'Voluntário', 'Aulas', 'Participar', 'Nova Pessoa'
+  message   String?
+  responded Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ------------------------------------------------
+// COMUNIDADE, ORAÇÃO E TESTEMUNHOS
+// ------------------------------------------------
+
+model PrayerRequest {
+  id        String   @id @default(uuid())
+  name      String
+  request   String
+  isPublic  Boolean  @default(false)
+  status    String   @default("PENDING") // PENDING, PRAYING, ANSWERED
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(uuid())
+  name      String
+  text      String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ------------------------------------------------
+// PLATAFORMA DE ENSINO
+// ------------------------------------------------
+
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  image       String?
+  modules     Module[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Module {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  order       Int      @default(0)
+  courseId    String
+  course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessons     Lesson[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lesson {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  videoUrl     String?
+  materialsUrl String?        // Para outros materiais
+  pdfUrl       String?        // PDF específico mencionado no áudio
+  allowDownload Boolean       @default(false)
+  order        Int            @default(0)
+  moduleId     String
+  module       Module         @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  comments     Comment[]
+  progress     UserProgress[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model UserProgress {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  completed Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, lessonId])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId  String
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ------------------------------------------------
+// EVENTOS E AGENDA
+// ------------------------------------------------
+
+model Event {
+  id            String              @id @default(uuid())
+  title         String
+  description   String
+  date          String
+  time          String
+  location      String
+  type          String              @default("Culto") // Adoração, Culto, Jump, Evento
+  registrations EventRegistration[]
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+}
+
+model EventRegistration {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  eventId   String
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, eventId])
+}
+
+// ------------------------------------------------
+// GESTÃO FINANCEIRA / DOAÇÕES
+// ------------------------------------------------
+
+model Donation {
+  id        String   @id @default(uuid())
+  amount    Float
+  type      String   // PIX, CreditCard, Recorrente
+  status    String   @default("COMPLETED")
+  donorName String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
+}
+
+// ------------------------------------------------
+// BLOG / CONTEÚDOS
+// ------------------------------------------------
+
+model BlogPost {
+  id        String   @id @default(uuid())
+  title     String
+  excerpt   String
+  content   String
+  category  String
+  image     String?
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

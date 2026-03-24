@@ -1,129 +1,179 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'motion/react';
-import { HeartHandshake, Shield, GraduationCap, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { HeartHandshake, Shield, GraduationCap, ArrowRight, Star, Target, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Jump() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black selection:bg-emerald-500/30">
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden border-b border-white/10">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1920&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1920"
             alt="Jump Background"
             fill
-            className="object-cover opacity-20"
-            referrerPolicy="no-referrer"
+            className="object-cover opacity-20 scale-110 blur-[2px]"
             priority
           />
+          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/80 to-black" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1 }}
             className="max-w-3xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-white text-sm font-medium mb-6 border border-white/20">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-8 border border-emerald-500/20">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Há 14 anos transformando vidas
+              Impacto Real há 14 anos
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-display tracking-tight">
-              O Projeto Jump
+            <h1 className="text-5xl md:text-8xl font-bold text-white mb-8 font-display tracking-tight leading-none">
+              Projeto <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Jump</span>
             </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed font-light">
-              O Jump é uma ONG que atua levando esperança, dignidade e propósito para pessoas em diferentes contextos de vulnerabilidade na sociedade.
+            <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed font-light max-w-2xl">
+              Uma ONG dedicada a restaurar dignidade e propósito para vidas em contextos de vulnerabilidade através do amor prático.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Áreas de Atuação */}
-      <section className="py-24 bg-zinc-950">
+      <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-display">Nossas Frentes de Ação</h2>
-            <p className="text-zinc-400 text-lg max-w-2xl">
-              Atuamos onde a necessidade é maior, levando não apenas palavras, mas ações concretas de amor e restauração.
+          <div className="mb-20 text-center max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-display">Nossas Frentes</h2>
+            <p className="text-zinc-400 text-lg md:text-xl font-light">
+              Levamos o Reino onde a necessidade é maior, transformando dor em propósito e exclusão em pertencimento.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-black p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-colors group">
-              <div className="w-14 h-14 rounded-2xl bg-zinc-900 flex items-center justify-center mb-6 group-hover:bg-zinc-800 transition-colors">
-                <HeartHandshake className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4 font-display">Resgate e Apoio</h3>
-              <p className="text-zinc-400 leading-relaxed mb-6">
-                Visitas a abrigos, trabalho em presídios e apoio a mulheres em situação de prostituição. Já conseguimos retirar mais de 15 mulheres das ruas, oferecendo apoio para reconstruir suas vidas.
-              </p>
-            </div>
-
-            <div className="bg-black p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-colors group">
-              <div className="w-14 h-14 rounded-2xl bg-zinc-900 flex items-center justify-center mb-6 group-hover:bg-zinc-800 transition-colors">
-                <GraduationCap className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4 font-display">Palestras nas Escolas</h3>
-              <p className="text-zinc-400 leading-relaxed mb-6">
-                Levamos conscientização para jovens e adolescentes, abordando temas cruciais como ética, propósito de vida e valores morais.
-              </p>
-            </div>
-
-            <div className="bg-black p-8 rounded-3xl border border-white/5 hover:border-white/20 transition-colors group">
-              <div className="w-14 h-14 rounded-2xl bg-zinc-900 flex items-center justify-center mb-6 group-hover:bg-zinc-800 transition-colors">
-                <Shield className="w-6 h-6 text-zinc-400 group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-4 font-display">Aulas de Luta</h3>
-              <p className="text-zinc-400 leading-relaxed mb-6">
-                Utilizamos o esporte como ferramenta de transformação social, promovendo disciplina, saúde física e mental, e desenvolvimento pessoal.
-              </p>
-            </div>
+            {[
+              { 
+                icon: HeartHandshake, 
+                title: 'Resgate e Apoio', 
+                desc: 'Apoio a mulheres em situação de prostituição. Mais de 15 vidas retiradas das ruas e restauradas.',
+                color: 'emerald'
+              },
+              { 
+                icon: GraduationCap, 
+                title: 'Educação e Valores', 
+                desc: 'Palestras de conscientização para jovens sobre ética, propósito e valores imutáveis.',
+                color: 'cyan'
+              },
+              { 
+                icon: Shield, 
+                title: 'Transformação via Esporte', 
+                desc: 'Aulas de luta como ferramenta de disciplina, saúde mental e resgate da auto-estima.',
+                color: 'amber'
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="group relative p-10 rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-3xl border border-white/5 hover:border-emerald-500/20 transition-all duration-500"
+              >
+                <div className="relative z-10 text-center">
+                  <div className="w-20 h-20 rounded-3xl bg-black border border-white/10 flex items-center justify-center mx-auto mb-10 group-hover:scale-110 group-hover:rotate-6 transition-transform">
+                    <item.icon className="w-10 h-10 text-emerald-500" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-6 font-display">{item.title}</h3>
+                  <p className="text-zinc-400 leading-relaxed text-base">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Impacto */}
-      <section className="py-24 bg-black">
+      {/* Impacto / Story Section */}
+      <section className="py-32 bg-zinc-950/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[600px] rounded-2xl overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=800&auto=format&fit=crop"
-                alt="Impacto Social"
-                fill
-                className="object-cover"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-              <div className="absolute bottom-8 left-8 right-8 bg-black/60 backdrop-blur-md p-6 rounded-2xl border border-white/10">
-                <div className="text-4xl font-bold text-white mb-2 font-display">+15</div>
-                <div className="text-zinc-300">Mulheres retiradas da prostituição e com vidas transformadas.</div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-emerald-500/10 blur-3xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="relative h-[650px] rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=1200"
+                  alt="Impacto Social"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-1000"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                
+                {/* Impact Overlay Card */}
+                <div className="absolute bottom-10 left-10 right-10 bg-black/60 backdrop-blur-2xl p-8 rounded-3xl border border-white/10 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                  <div className="flex items-center gap-4 mb-4">
+                     <Star className="w-8 h-8 text-emerald-500 fill-emerald-500" />
+                     <div className="text-4xl font-black text-white font-display">+15</div>
+                  </div>
+                  <div className="text-zinc-300 text-lg">Vidas de mulheres totalmente restauradas e reintegradas à sociedade.</div>
+                </div>
               </div>
             </div>
+
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-display">O Amor na Prática</h2>
-              <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-                Acreditamos que o Evangelho não se resume a palavras, mas a poder e ação. O Jump é a extensão prática da Casa de Oração, levando a presença de Deus para os lugares mais escuros da sociedade.
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-display leading-[0.9]">
+                O Amor <br /> na Prática
+              </h2>
+              <p className="text-zinc-400 text-xl mb-8 leading-relaxed font-light">
+                O Jump é a extensão prática da Casa de Oração. Não levamos apenas palavras; levamos o Reino em forma de socorro, pão, instrução e abraço.
               </p>
-              <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
-                Cada vida restaurada é um testemunho do poder transformador do amor. E nós estamos apenas começando.
-              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-12">
+                 {[
+                   { icon: Target, title: 'Prisão', text: 'Presença onde poucos ousam ir.' },
+                   { icon: Zap, title: 'Resgate', text: 'Liberdade para os cativos sociais.' }
+                 ].map((box, i) => (
+                   <div key={i} className="space-y-3">
+                      <box.icon className="w-8 h-8 text-emerald-500" />
+                      <h5 className="text-white font-bold">{box.title}</h5>
+                      <p className="text-zinc-500 text-sm">{box.text}</p>
+                   </div>
+                 ))}
+              </div>
+
               <Link
                 href="/voluntario"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-zinc-200 transition-colors"
+                className="inline-flex items-center gap-3 px-10 py-5 bg-emerald-500 text-black font-bold rounded-2xl transition-all hover:bg-emerald-400 active:scale-95 shadow-lg shadow-emerald-500/20"
               >
-                Quero ser Voluntário <ArrowRight className="w-5 h-5" />
+                Quero ser Voluntário <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Footer-like CTA */}
+      <section className="py-32 px-4 border-t border-white/5 bg-black">
+        <div className="max-w-4xl mx-auto text-center">
+           <h3 className="text-3xl md:text-5xl font-bold text-white mb-8 font-display">Toda ajuda importa</h3>
+           <p className="text-zinc-400 text-xl mb-12 font-light">
+             Seja como voluntário ou através de doações para o bazar, você é parte crucial dessa engrenagem de transformação social.
+           </p>
+           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Link href="/doacoes" className="w-full sm:w-auto px-10 py-5 bg-white text-black font-bold rounded-2xl hover:bg-zinc-200 transition-all flex items-center justify-center gap-3">
+                 Fazer uma Doação <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link href="/bazar" className="w-full sm:w-auto px-10 py-5 bg-zinc-900 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/5 transition-all">
+                 Conhecer o Bazar
+              </Link>
+           </div>
         </div>
       </section>
     </div>
