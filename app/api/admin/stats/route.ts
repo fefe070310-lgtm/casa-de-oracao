@@ -26,9 +26,9 @@ export async function GET() {
     });
 
     const activities = [
-      ...recentUsers.map(u => ({ id: u.id, type: 'USER', title: 'Novo Membro', desc: `${u.name} se registrou`, time: u.createdAt })),
-      ...recentLeads.map(l => ({ id: l.id, type: 'LEAD', title: 'Novo Lead', desc: `${l.name} - ${l.interest}`, time: l.createdAt }))
-    ].sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime()).slice(0, 5);
+      ...recentUsers.map((u: { id: string; name: string | null; createdAt: Date }) => ({ id: u.id, type: 'USER', title: 'Novo Membro', desc: `${u.name} se registrou`, time: u.createdAt })),
+      ...recentLeads.map((l: { id: string; name: string; interest: string; createdAt: Date }) => ({ id: l.id, type: 'LEAD', title: 'Novo Lead', desc: `${l.name} - ${l.interest}`, time: l.createdAt }))
+    ].sort((a: any, b: any) => new Date(b.time).getTime() - new Date(a.time).getTime()).slice(0, 5);
 
     return NextResponse.json({
       success: true,
