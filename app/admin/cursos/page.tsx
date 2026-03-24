@@ -281,7 +281,7 @@ export default function CursosPage() {
                 <p className="text-sm text-zinc-500 mb-6 line-clamp-2 font-light leading-relaxed">{course.description}</p>
                 <div className="flex items-center gap-6 pt-6 border-t border-white/5 text-[10px] font-black uppercase tracking-widest text-zinc-400">
                   <span className="flex items-center gap-2"><Layers className="w-4 h-4 text-zinc-600" /> {course.modules.length} módulos</span>
-                  <span className="flex items-center gap-2"><PlayCircle className="w-4 h-4 text-zinc-600" /> {course.modules.reduce((sum, m) => sum + (m.lessons?.length || 0), 0)} aulas</span>
+                  <span className="flex items-center gap-2"><PlayCircle className="w-4 h-4 text-zinc-600" /> {course.modules.reduce((sum: number, m: any) => sum + (m.lessons?.length || 0), 0)} aulas</span>
                 </div>
               </div>
             </div>

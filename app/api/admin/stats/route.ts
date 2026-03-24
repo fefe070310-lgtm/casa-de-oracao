@@ -8,7 +8,7 @@ export async function GET() {
     const pendingLeads = await prisma.lead.count({ where: { responded: false } });
     
     const donations = await prisma.donation.findMany();
-    const totalRevenue = donations.reduce((sum, d) => sum + d.amount, 0);
+    const totalRevenue = donations.reduce((sum: number, d) => sum + d.amount, 0);
 
     // Pedidos de oração
     const prayerCount = await prisma.prayerRequest.count();

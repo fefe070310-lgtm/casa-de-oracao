@@ -13,13 +13,13 @@ export async function GET() {
     });
 
     // Calcular totais
-    const totalAmount = donations.reduce((sum, d) => sum + d.amount, 0);
+    const totalAmount = donations.reduce((sum: number, d) => sum + d.amount, 0);
     const thisMonth = donations.filter((d) => {
       const now = new Date();
       const donationDate = new Date(d.createdAt);
       return donationDate.getMonth() === now.getMonth() && donationDate.getFullYear() === now.getFullYear();
     });
-    const monthlyTotal = thisMonth.reduce((sum, d) => sum + d.amount, 0);
+    const monthlyTotal = thisMonth.reduce((sum: number, d) => sum + d.amount, 0);
 
     // Calcular estatísticas mensais (últimos 6 meses) para o gráfico
     const chartData = [];
@@ -35,7 +35,7 @@ export async function GET() {
           const donDate = new Date(don.createdAt);
           return donDate.getMonth() === monthVal && donDate.getFullYear() === yearVal;
         })
-        .reduce((sum, don) => sum + don.amount, 0);
+        .reduce((sum: number, don) => sum + don.amount, 0);
 
       chartData.push({ month: monthLabel.charAt(0).toUpperCase() + monthLabel.slice(1).replace('.', ''), value: monthAmount });
     }
