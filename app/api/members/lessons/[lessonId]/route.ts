@@ -4,16 +4,17 @@ import { verifyAuth } from '@/lib/auth';
 
 export async function GET(
   req: Request,
-  { params }: { params: { courseId: string; lessonId: string } }
+  { params }: { params: Promise<{ lessonId: string }> }
 ) {
   try {
+    const { lessonId } = await params;
     const user = await verifyAuth(req);
     if (!user) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
     const lesson = await prisma.lesson.findUnique({
-      where: { id: params.lessonId },
+      where: { id: lessonId },
       include: {
         module: {
           include: {
