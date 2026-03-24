@@ -13,10 +13,12 @@ import {
   Menu,
   X,
   ChevronRight,
-  TrendingUp
+  TrendingUp,
+  Home
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { BottomMenuBar } from '@/components/ui/bottom-menu';
 
 export default function MembrosDashboard() {
   const router = useRouter();
@@ -137,7 +139,7 @@ export default function MembrosDashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10 lg:p-16 mt-20 md:mt-0 overflow-y-auto">
+      <main className="flex-1 p-6 md:p-10 lg:p-16 mt-20 md:mt-0 overflow-y-auto pb-24 md:pb-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -248,6 +250,15 @@ export default function MembrosDashboard() {
           )}
         </motion.div>
       </main>
+
+      {/* Mobile Bottom Navigation */}
+      <BottomMenuBar
+        items={[
+          { icon: BookOpen, label: 'Cursos', href: '/membros' },
+          { icon: User, label: 'Perfil', href: '/membros/perfil' },
+          { icon: Home, label: 'Site', href: '/' },
+        ]}
+      />
     </div>
   );
 }

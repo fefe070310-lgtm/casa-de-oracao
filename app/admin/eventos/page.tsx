@@ -61,11 +61,17 @@ export default function EventosPage() {
     }
   };
 
-  const typeColors: Record<string, string> = {
-    'Adoração': 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-    'Culto': 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
-    'Jump': 'bg-blue-500/10 text-blue-500 border-blue-500/20',
-    'Evento': 'bg-pink-500/10 text-pink-500 border-pink-500/20',
+  const typeColors: Record<string, { bg: string; text: string; border: string }> = {
+    'Adoração': { bg: '#FFF8E6', text: '#E17055', border: '#E1705530' },
+    'Culto': { bg: '#E6FFF9', text: '#00B894', border: '#00B89430' },
+    'Jump': { bg: '#EDF5FF', text: '#0984E3', border: '#0984E330' },
+    'Evento': { bg: '#F5F0FF', text: '#6C5CE7', border: '#6C5CE730' },
+  };
+
+  const inputStyle = {
+    background: 'var(--admin-bg)',
+    border: '1px solid var(--admin-border)',
+    color: 'var(--admin-text-primary)',
   };
 
   return (
@@ -74,16 +80,18 @@ export default function EventosPage() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2 font-display">Eventos e Agenda</h1>
-          <p className="text-zinc-400">Gerencie cultos, adoração e eventos especiais.</p>
+          <h1 className="text-2xl md:text-3xl font-bold mb-1 font-display" style={{ color: 'var(--admin-text-primary)' }}>Eventos e Agenda</h1>
+          <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>Gerencie cultos, adoração e eventos especiais.</p>
         </div>
         <div className="flex gap-3">
-          <button onClick={fetchEvents} className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-white/10 text-white rounded-lg hover:bg-zinc-800 transition-colors text-sm">
+          <button onClick={fetchEvents} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all text-sm"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Atualizar
           </button>
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 bg-white text-black font-semibold rounded-lg hover:bg-zinc-200 transition-colors text-sm">
+          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 font-semibold rounded-xl transition-all text-sm"
+            style={{ background: 'var(--admin-active-text)', color: '#fff', boxShadow: '0 4px 12px rgba(108, 92, 231, 0.25)' }}>
             <Plus className="w-4 h-4" /> Novo Evento
           </button>
         </div>
@@ -94,39 +102,40 @@ export default function EventosPage() {
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
-          className="bg-zinc-900 border border-white/10 rounded-2xl p-6 mb-8"
+          className="rounded-2xl p-6 mb-8"
+          style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}
         >
-          <h2 className="text-xl font-bold text-white mb-6 font-display">Criar Novo Evento</h2>
+          <h2 className="text-lg font-bold mb-6 font-display" style={{ color: 'var(--admin-text-primary)' }}>Criar Novo Evento</h2>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Título</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Título</label>
               <input type="text" required value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Nome do evento" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} placeholder="Nome do evento" />
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Descrição</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Descrição</label>
               <textarea required rows={3} value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors resize-none" placeholder="Descrição do evento" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all resize-none" style={inputStyle} placeholder="Descrição do evento" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Data</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Data</label>
               <input type="date" required value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Horário</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Horário</label>
               <input type="time" required value={formData.time} onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Local</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Local</label>
               <input type="text" required value={formData.location} onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Local do evento" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} placeholder="Local do evento" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Tipo</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Tipo</label>
               <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors appearance-none">
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all appearance-none" style={inputStyle}>
                 <option value="Culto">Culto</option>
                 <option value="Adoração">Adoração</option>
                 <option value="Jump">Jump</option>
@@ -134,8 +143,9 @@ export default function EventosPage() {
               </select>
             </div>
             <div className="md:col-span-2 flex justify-end gap-3 mt-2">
-              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 text-zinc-400 hover:text-white transition-colors">Cancelar</button>
-              <button type="submit" disabled={saving} className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-zinc-200 transition-colors disabled:opacity-50">
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 transition-colors rounded-xl" style={{ color: 'var(--admin-text-muted)' }}>Cancelar</button>
+              <button type="submit" disabled={saving} className="px-6 py-3 font-semibold rounded-xl transition-all disabled:opacity-50"
+                style={{ background: 'var(--admin-active-text)', color: '#fff' }}>
                 {saving ? 'Salvando...' : 'Criar Evento'}
               </button>
             </div>
@@ -143,33 +153,50 @@ export default function EventosPage() {
         </motion.div>
       )}
 
-      {/* Events List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Events Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {loading ? (
-          <div className="col-span-full text-center text-zinc-500 py-12">Carregando eventos...</div>
+          <div className="col-span-full text-center py-12 text-sm" style={{ color: 'var(--admin-text-muted)' }}>Carregando eventos...</div>
         ) : events.length === 0 ? (
-          <div className="col-span-full text-center text-zinc-500 py-12">Nenhum evento cadastrado.</div>
+          <div className="col-span-full text-center py-12 text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+            <Calendar className="w-10 h-10 mx-auto mb-3 opacity-30" />
+            Nenhum evento cadastrado.
+          </div>
         ) : (
-          events.map((event) => (
-            <div key={event.id} className="bg-zinc-900 border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-colors group">
-              <div className="flex justify-between items-start mb-4">
-                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium border ${typeColors[event.type] || 'bg-white/10 text-zinc-300 border-white/10'}`}>
-                  {event.type}
-                </span>
-                <button className="p-1 text-zinc-500 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
-                  <MoreVertical className="w-4 h-4" />
-                </button>
-              </div>
-              <h3 className="text-lg font-bold text-white mb-3 font-display">{event.title}</h3>
-              <p className="text-sm text-zinc-500 mb-4 line-clamp-2">{event.description}</p>
-              <div className="space-y-2 text-sm text-zinc-400">
-                <div className="flex items-center gap-2"><Calendar className="w-4 h-4" /> {event.date}</div>
-                <div className="flex items-center gap-2"><Clock className="w-4 h-4" /> {event.time}</div>
-                <div className="flex items-center gap-2"><MapPin className="w-4 h-4" /> {event.location}</div>
-                <div className="flex items-center gap-2"><Users className="w-4 h-4" /> {event.registrations?.length || 0} inscritos</div>
-              </div>
-            </div>
-          ))
+          events.map((event, i) => {
+            const tc = typeColors[event.type] || { bg: 'var(--admin-bg)', text: 'var(--admin-text-secondary)', border: 'var(--admin-border)' };
+            return (
+              <motion.div
+                key={event.id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="rounded-2xl p-6 transition-all group"
+                style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              >
+                <div className="flex justify-between items-start mb-4">
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold" style={{
+                    background: tc.bg, color: tc.text, border: `1px solid ${tc.border}`
+                  }}>{event.type}</span>
+                  <button className="p-1 transition-all opacity-0 group-hover:opacity-100 rounded-lg" style={{ color: 'var(--admin-text-muted)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--admin-hover-bg)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>
+                    <MoreVertical className="w-4 h-4" />
+                  </button>
+                </div>
+                <h3 className="text-base font-bold mb-2 font-display" style={{ color: 'var(--admin-text-primary)' }}>{event.title}</h3>
+                <p className="text-sm mb-4 line-clamp-2" style={{ color: 'var(--admin-text-muted)' }}>{event.description}</p>
+                <div className="space-y-2 text-sm" style={{ color: 'var(--admin-text-secondary)' }}>
+                  <div className="flex items-center gap-2"><Calendar className="w-4 h-4" style={{ color: 'var(--admin-text-muted)' }} /> {event.date}</div>
+                  <div className="flex items-center gap-2"><Clock className="w-4 h-4" style={{ color: 'var(--admin-text-muted)' }} /> {event.time}</div>
+                  <div className="flex items-center gap-2"><MapPin className="w-4 h-4" style={{ color: 'var(--admin-text-muted)' }} /> {event.location}</div>
+                  <div className="flex items-center gap-2"><Users className="w-4 h-4" style={{ color: 'var(--admin-text-muted)' }} /> {event.registrations?.length || 0} inscritos</div>
+                </div>
+              </motion.div>
+            );
+          })
         )}
       </div>
     </motion.div>

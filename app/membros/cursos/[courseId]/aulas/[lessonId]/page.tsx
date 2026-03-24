@@ -15,6 +15,36 @@ import {
   Calendar
 } from 'lucide-react';
 import { isLessonUnlocked } from '@/lib/progress-utils';
+import dynamic from 'next/dynamic';
+import 'plyr/dist/plyr.css';
+
+// Dynamic import with SSR disabled to prevent window/document errors
+const VideoPlayer = dynamic(() => import('@/components/video-player'), { ssr: false });
+
+const getVideoData = (url: string): { provider: 'youtube' | 'vimeo'; videoId: string } | null => {
+  if (!url) return null;
+  try {
+    let videoId = '';
+    let provider: 'youtube' | 'vimeo' = 'youtube';
+
+    if (url.includes('youtube.com/watch')) {
+      const urlObj = new URL(url.startsWith('http') ? url : `https://${url}`);
+      videoId = urlObj.searchParams.get('v') || '';
+    } else if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1]?.split('?')[0] || '';
+    } else if (url.includes('youtube.com/embed/')) {
+      videoId = url.split('embed/')[1]?.split('?')[0] || '';
+    } else if (url.includes('vimeo.com/')) {
+      provider = 'vimeo';
+      videoId = url.split('vimeo.com/')[1]?.split('?')[0]?.split('/')[0] || '';
+    }
+
+    if (videoId) return { provider, videoId };
+  } catch (e) {
+    console.error("Invalid video URL format", e);
+  }
+  return null;
+};
 
 export default function LessonPage() {
   const params = useParams();
@@ -150,13 +180,24 @@ export default function LessonPage() {
                   <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/80 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/80 to-transparent z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
-                  {/* Iframe com parâmetros de limpeza para Youtube/Vimeo */}
-                  <iframe 
-                    src={`${lesson.videoUrl}${lesson.videoUrl.includes('?') ? '&' : '?'}modestbranding=1&rel=0&showinfo=0&autoplay=0&hl=pt&iv_load_policy=3`}
-                    className="w-full h-full grayscale-[0.2] contrast-[1.1] brightness-[1.05]"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+                  {/* Integrando Player customizado para máscara nativa absoluta */}
+                  {(() => {
+                    const videoData = getVideoData(lesson.videoUrl);
+                    if (!videoData) {
+                       return (
+                         <iframe 
+                           src={lesson.videoUrl}
+                           className="w-full h-full grayscale-[0.2] contrast-[1.1] brightness-[1.05] border-0 outline-none pointer-events-auto"
+                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                           allowFullScreen
+                         />
+                       );
+                    }
+                    
+                    return (
+                      <VideoPlayer videoId={videoData.videoId} provider={videoData.provider} />
+                    );
+                  })()}
                   
                   {/* Branding Mask - Logo over player top left */}
                   <div className="absolute top-6 left-8 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center gap-3">

@@ -7,7 +7,7 @@ export default function Sobre() {
   return (
     <div className="min-h-screen bg-black">
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden border-b border-white/10">
+      <section className="relative pt-32 pb-16 md:py-32 mt-16 overflow-hidden border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -15,7 +15,7 @@ export default function Sobre() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-display tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 md:mb-6 font-display tracking-tight">
               Nossa História
             </h1>
             <p className="text-xl text-zinc-400 leading-relaxed font-light">
@@ -26,10 +26,10 @@ export default function Sobre() {
       </section>
 
       {/* Fundadores */}
-      <section className="py-24 bg-zinc-950">
+      <section className="py-16 md:py-24 bg-zinc-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div className="relative h-[600px] rounded-2xl overflow-hidden shadow-2xl shadow-red-600/10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div className="relative h-[400px] sm:h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl shadow-red-600/10">
               <Image
                 src="/fundadores.jpg"
                 alt="Guilherme e Geane Gonçalves"
@@ -43,8 +43,8 @@ export default function Sobre() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 font-display">Os Fundadores</h2>
-              <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
+              <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 font-display mt-6 md:mt-0">Os Fundadores</h2>
+              <p className="text-zinc-400 text-base md:text-lg mb-6 md:mb-8 leading-relaxed">
                 Os projetos foram fundados por <strong>Guilherme Jorge Gonçalves</strong> e <strong>Geane de Andrade Gonçalves</strong>, na cidade de São José dos Campos, em São Paulo, no Brasil.
               </p>
               <p className="text-zinc-400 text-lg mb-8 leading-relaxed">
@@ -63,10 +63,10 @@ export default function Sobre() {
       </section>
 
       {/* Timeline / Projetos */}
-      <section className="py-24 bg-black">
+      <section className="py-16 md:py-24 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="border border-white/10 rounded-3xl p-10 bg-zinc-950/50 hover:bg-zinc-900/50 transition-colors">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <div className="border border-white/10 rounded-3xl p-8 md:p-10 bg-zinc-950/50 hover:bg-zinc-900/50 transition-colors">
               <div className="text-zinc-500 font-mono text-sm mb-4">HÁ 14 ANOS</div>
               <h3 className="text-2xl font-bold text-white mb-4 font-display">O Início do Jump</h3>
               <p className="text-zinc-400 leading-relaxed mb-6">
@@ -88,7 +88,7 @@ export default function Sobre() {
               </ul>
             </div>
 
-            <div className="border border-white/10 rounded-3xl p-10 bg-zinc-950/50 hover:bg-zinc-900/50 transition-colors">
+            <div className="border border-white/10 rounded-3xl p-8 md:p-10 bg-zinc-950/50 hover:bg-zinc-900/50 transition-colors">
               <div className="text-zinc-500 font-mono text-sm mb-4">ESTE ANO</div>
               <h3 className="text-2xl font-bold text-white mb-4 font-display">A Casa de Oração</h3>
               <p className="text-zinc-400 leading-relaxed mb-6">

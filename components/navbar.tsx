@@ -51,12 +51,10 @@ export function Navbar() {
     <>
       <header className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-white/5 mx-auto transition-all">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <img 
-            src="/logo.jpg" 
-            alt="Casa de Oração Logo" 
-            className="h-10 w-auto rounded-lg shadow-2xl transition-transform group-hover:scale-105" 
-          />
+        <Link href="/" className="flex items-center gap-2 group">
+          <span className="text-xl md:text-2xl font-bold font-display tracking-tighter text-white">
+            CASA<span className="text-red-600">JUMP</span>
+          </span>
         </Link>
 
         {/* Glow Menu - Desktop Only (Center) */}

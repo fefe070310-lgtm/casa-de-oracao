@@ -24,12 +24,12 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
-          {/* Background Layer mit Bild - APENAS PARA HERO */}
+        <section className="relative min-h-[92vh] flex items-center justify-center py-16 md:py-20 overflow-hidden">
+          {/* Background Layer com Maior Contraste para Legibilidade */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <motion.div 
               style={{ 
-                opacity: useTransform(scrollYProgress, [0, 0.2], [0.6, 0.4]),
+                opacity: useTransform(scrollYProgress, [0, 0.2], [0.8, 0.4]),
                 scale: shouldReduceMotion ? 1 : backgroundScale 
               }}
               className="relative w-full h-full"
@@ -38,11 +38,12 @@ export default function Home() {
                 src="/home-bg.jpg"
                 alt="Background"
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 priority
               />
-              {/* Overlay suave apenas para garantir legibilidade, mas sem o gradiente pesado anterior */}
-              <div className="absolute inset-0 bg-black/20" />
+              {/* Overlay radial para escurecer o centro (onde fica o texto) e as bordas suavemente */}
+              <div className="absolute inset-0 bg-black/50" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.3)_0%,rgba(0,0,0,0.8)_100%)]" />
             </motion.div>
           </div>
 
@@ -50,43 +51,47 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="max-w-4xl mx-auto px-4 text-center relative z-10"
+            className="max-w-5xl mx-auto px-4 text-center relative z-10 w-full"
           >
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-6 md:mb-8 mt-12 md:mt-0">
               <motion.span 
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold tracking-widest uppercase"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-[10px] md:text-sm font-bold tracking-widest uppercase backdrop-blur-sm"
               >
-                <Sparkles className="w-3 h-3" /> São José dos Campos, SP
+                <Sparkles className="w-3 h-3 md:w-4 md:h-4" /> São José dos Campos, SP
               </motion.span>
             </div>
             
-            <h1 className="text-5xl md:text-8xl font-bold text-white mb-8 tracking-tighter font-display leading-[0.9]">
-              Transformando <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/50">
+            <h1 className="text-5xl leading-[1.1] sm:text-6xl md:text-7xl lg:text-[6rem] lg:leading-[1] font-black text-white mb-6 md:mb-8 tracking-tighter font-display drop-shadow-2xl">
+              Transformando{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white to-white/70">
                 Vidas
-              </span> através do <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500">
+              </span>
+              <br className="hidden sm:block" />{' '}
+              <span className="block sm:inline mt-1 sm:mt-0 text-[1.85rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] text-zinc-300 font-bold">
+                através do
+              </span>{' '}
+              <span className="block sm:inline mt-1 sm:mt-0 text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-orange-500 text-6xl sm:text-7xl md:text-8xl lg:text-[7.5rem]">
                 Reino
               </span>
             </h1>
 
-            <p className="text-lg md:text-2xl text-zinc-100 mb-12 max-w-2xl mx-auto font-light leading-relaxed drop-shadow-md">
-              A Casa de Oração e o Projeto Jump são movimentos que levam esperança, adoração e amor prático ao próximo.
+            <p className="text-base sm:text-lg md:text-2xl text-zinc-200 mb-10 md:mb-12 max-w-3xl mx-auto font-light leading-relaxed drop-shadow-lg px-2 sm:px-4">
+              A Casa de Oração e o Projeto Jump são movimentos combinados que levam adoração contínua, esperança e amor prático ao próximo.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-[280px] sm:max-w-none mx-auto">
               <Link
                 href="/casa-de-oracao"
-                className="group relative w-full sm:w-auto px-10 py-5 bg-white text-black font-bold rounded-2xl transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 overflow-hidden shadow-2xl shadow-black/20"
+                className="group relative w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-white text-black font-bold rounded-2xl md:rounded-[1.25rem] transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-3 overflow-hidden shadow-[0_0_40px_rgba(255,255,255,0.1)] text-sm md:text-base border border-white/20"
               >
                 <div className="absolute inset-0 bg-gradient-to-tr from-red-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                Conheça a Casa <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                Conheça a Casa <ArrowRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 href="/jump"
-                className="w-full sm:w-auto px-10 py-5 bg-black/40 backdrop-blur-xl text-white font-bold rounded-2xl border border-white/10 hover:bg-red-500/20 hover:border-red-500/30 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-xl shadow-black/50"
+                className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 bg-black/50 backdrop-blur-xl text-white font-bold rounded-2xl md:rounded-[1.25rem] border border-white/10 hover:bg-zinc-900 hover:border-white/30 transition-all flex items-center justify-center gap-3 active:scale-95 shadow-xl text-sm md:text-base"
               >
                 Conheça o Jump
               </Link>
@@ -95,29 +100,29 @@ export default function Home() {
         </section>
 
         {/* Quote Section */}
-        <section className="py-20 flex justify-center bg-zinc-950 border-t border-white/5">
+        <section className="py-16 md:py-20 flex justify-center bg-zinc-950 border-t border-white/5">
            <motion.div 
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
              className="max-w-3xl px-6 text-center"
            >
-              <Quote className="w-12 h-12 text-zinc-800 mx-auto mb-8" />
-              <h2 className="text-2xl md:text-4xl italic font-light text-zinc-300 leading-snug">
+              <Quote className="w-10 h-10 md:w-12 md:h-12 text-zinc-800 mx-auto mb-6 md:mb-8" />
+              <h2 className="text-xl sm:text-2xl md:text-4xl italic font-light text-zinc-300 leading-snug">
                 "Nossa visão é expandir para um ambiente de adoração contínua, 24 horas por dia, 7 dias por semana."
               </h2>
            </motion.div>
         </section>
 
         {/* Casa de Oração & Jump Split Section */}
-        <section className="py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        <section className="py-20 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           
           {/* Card: Casa de Oração */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="group relative h-[600px] flex flex-col justify-end p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl shadow-black/50"
+            className="group relative h-[450px] md:h-[600px] flex flex-col justify-end p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl shadow-black/50"
           >
             <Image
               src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?q=80&w=1200"
@@ -128,8 +133,8 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
             
             <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 font-display">Casa de Oração</h3>
-              <p className="text-zinc-300 text-lg mb-8 max-w-md leading-relaxed">
+              <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 font-display">Casa de Oração</h3>
+              <p className="text-zinc-300 text-sm md:text-lg mb-6 md:mb-8 max-w-md leading-relaxed hidden sm:block">
                 Um lugar de adoração, intercessão e ensino sobre o Reino de Deus. Buscando a presença de Deus sem limites.
               </p>
               
@@ -154,19 +159,27 @@ export default function Home() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="group relative h-[600px] flex flex-col justify-end p-8 md:p-12 rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl shadow-black/50"
+            className="group relative h-[450px] md:h-[600px] flex flex-col justify-end p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-white/5 shadow-2xl shadow-black/50 bg-black"
           >
-            <Image
-              src="https://images.unsplash.com/photo-1593113565630-1de8eb06550a?q=80&w=1200"
-              alt="Projeto Jump"
-              fill
-              className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent" />
+            {/* Logo com Blend Mode Ampliado e Vermelho */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="relative w-full h-full opacity-25 group-hover:opacity-40 transition-all duration-700 mix-blend-screen">
+                <Image
+                  src="/images/jump-logo-crown.png"
+                  alt="Projeto Jump Logo"
+                  fill
+                  className="object-cover object-center grayscale invert brightness-[0.8] scale-110 group-hover:scale-125 transition-transform duration-1000"
+                />
+                {/* Camada de cor vermelha para a coroa */}
+                <div className="absolute inset-0 bg-red-600 mix-blend-multiply" />
+              </div>
+            </div>
+            
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
             
             <div className="relative z-10">
-              <h3 className="text-4xl md:text-5xl font-bold text-white mb-6 font-display">Mais que Social</h3>
-              <p className="text-zinc-300 text-lg mb-8 max-w-md leading-relaxed">
+              <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 md:mb-6 font-display">Mais que Social</h3>
+              <p className="text-zinc-300 text-sm md:text-lg mb-6 md:mb-8 max-w-md leading-relaxed hidden sm:block">
                 Há 14 anos, transformando realidades através do amor prático, educação e resgate da dignidade humana.
               </p>
               
@@ -189,9 +202,9 @@ export default function Home() {
         </section>
 
         {/* Stats Section */}
-        <section className="py-32 bg-black overflow-hidden relative border-y border-white/5">
+        <section className="py-20 md:py-32 bg-black overflow-hidden relative border-y border-white/5">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(239,68,68,0.05),transparent)]" />
-          <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 relative z-10">
+          <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 relative z-10">
             {[
               { label: 'Anos de História', value: '14+' },
               { label: 'Vidas Alcançadas', value: '10k+' },
@@ -214,7 +227,7 @@ export default function Home() {
         </section>
 
         {/* CTA Banners */}
-        <section className="py-32 px-4 bg-black">
+        <section className="py-20 md:py-32 px-4 bg-black">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* CTA 1: Bazar */}
@@ -242,7 +255,7 @@ export default function Home() {
 
             {/* CTA 3: Voluntariado */}
             <Link href="/voluntario" className="group relative h-80 rounded-[2rem] overflow-hidden border border-white/5">
-                <Image src="https://images.unsplash.com/photo-1559027615-cd943b355227?q=80&w=800" alt="Voluntário" fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-500" />
+                <Image src="/images/voluntarios.jpg" alt="Voluntários da Casa de Oração" fill className="object-cover opacity-40 group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
                 <div className="absolute inset-0 p-8 flex flex-col justify-end">
                    <h4 className="text-2xl font-bold text-white mb-2">Seja Voluntário</h4>
@@ -254,10 +267,10 @@ export default function Home() {
         </section>
 
         {/* Footer info/map placeholder */}
-        <section className="py-32 border-t border-white/5 bg-zinc-950">
-           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+        <section className="py-20 md:py-32 border-t border-white/5 bg-zinc-950">
+           <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
               <div>
-                <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-display">Onde nos <br /> encontrar?</h2>
+                <h2 className="text-3xl md:text-6xl font-bold text-white mb-8 font-display">Onde nos <br className="hidden sm:block" /> encontrar?</h2>
                 <div className="space-y-6">
                    <div className="flex gap-4">
                       <div className="w-12 h-12 rounded-xl bg-zinc-900 flex items-center justify-center flex-shrink-0">

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { BottomMenuBar } from '@/components/ui/bottom-menu';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -50,22 +51,52 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-black flex flex-col md:flex-row antialiased">
+    <div className="min-h-screen flex flex-col md:flex-row antialiased" style={{ background: 'var(--admin-bg)' }}>
+      <style jsx global>{`
+        :root {
+          --admin-bg: #F5F6FA;
+          --admin-sidebar: #FFFFFF;
+          --admin-card: #FFFFFF;
+          --admin-border: #E8EAF0;
+          --admin-text-primary: #1A1D26;
+          --admin-text-secondary: #6B7085;
+          --admin-text-muted: #9CA0B0;
+          --admin-accent: #E8443A;
+          --admin-accent-light: #FEF2F1;
+          --admin-accent-hover: #D63A30;
+          --admin-hover-bg: #F0F1F6;
+          --admin-active-bg: #F5F0FF;
+          --admin-active-text: #6C5CE7;
+          --admin-shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+          --admin-shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+          --admin-shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+        }
+      `}</style>
+
       {/* Mobile Top Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-zinc-950 border-b border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-md">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between" style={{
+        background: 'var(--admin-sidebar)',
+        borderBottom: '1px solid var(--admin-border)',
+        boxShadow: 'var(--admin-shadow-sm)'
+      }}>
         <Link href="/" className="flex items-center gap-3">
           <img src="/logo.jpg" alt="Logo" className="h-8 w-auto rounded" />
-          <span className="text-[10px] text-zinc-500 font-bold border border-zinc-800 px-2 py-0.5 rounded uppercase tracking-widest">Admin</span>
+          <span className="text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-widest" style={{
+            color: 'var(--admin-accent)',
+            border: '1px solid var(--admin-border)',
+            background: 'var(--admin-accent-light)'
+          }}>Admin</span>
         </Link>
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="p-2 text-white bg-white/5 rounded-lg border border-white/5"
+          className="p-2 rounded-lg transition-colors"
+          style={{ color: 'var(--admin-text-primary)', background: 'var(--admin-hover-bg)' }}
         >
           {isSidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
-      </div>
+      </header>
 
-      {/* Sidebar - Desktop and Mobile Drawer */}
+      {/* Sidebar */}
       <AnimatePresence>
         {(isSidebarOpen || (typeof window !== 'undefined' && window.innerWidth >= 768)) && (
           <motion.aside 
@@ -75,55 +106,84 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             transition={{ type: 'spring', damping: 20, stiffness: 100 }}
             className={`
               fixed md:relative inset-y-0 left-0 z-50
-              w-72 md:w-64 lg:w-72 bg-zinc-950 border-r border-white/10 flex flex-col
-              shadow-2xl md:shadow-none
+              w-72 md:w-64 lg:w-72 flex flex-col
               ${!isSidebarOpen && 'hidden md:flex'}
             `}
+            style={{
+              background: 'var(--admin-sidebar)',
+              borderRight: '1px solid var(--admin-border)',
+              boxShadow: isSidebarOpen ? 'var(--admin-shadow-lg)' : 'var(--admin-shadow-sm)'
+            }}
           >
-            <div className="p-8 border-b border-white/10 hidden md:block">
+            <div className="p-8 hidden md:block" style={{ borderBottom: '1px solid var(--admin-border)' }}>
               <Link href="/" className="block mb-6 group">
                 <img 
                   src="/logo.jpg" 
                   alt="Casa de Oração" 
-                  className="w-32 h-auto rounded-xl shadow-2xl transition-transform group-hover:scale-105" 
+                  className="w-28 h-auto rounded-xl transition-transform group-hover:scale-105" 
+                  style={{ boxShadow: 'var(--admin-shadow-md)' }}
                 />
               </Link>
-              <p className="text-sm text-emerald-500 flex items-center gap-2 font-bold tracking-tight">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Sistema Online
+              <p className="text-sm flex items-center gap-2 font-semibold tracking-tight" style={{ color: '#10B981' }}>
+                <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#10B981' }} /> Sistema Online
               </p>
             </div>
             
-            <div className="flex-1 px-4 py-8 md:p-4 space-y-1 overflow-y-auto">
+            <nav className="flex-1 px-4 py-8 md:p-4 space-y-1 overflow-y-auto">
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center justify-between px-5 py-3.5 rounded-2xl font-bold transition-all text-sm group ${
-                      isActive
-                        ? 'bg-white/10 text-white shadow-lg'
-                        : 'text-zinc-500 hover:bg-white/5 hover:text-white'
-                    }`}
+                    className="flex items-center justify-between px-4 py-3 rounded-xl font-semibold transition-all text-sm group"
+                    style={{
+                      background: isActive ? 'var(--admin-active-bg)' : 'transparent',
+                      color: isActive ? 'var(--admin-active-text)' : 'var(--admin-text-secondary)',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.background = 'var(--admin-hover-bg)';
+                        e.currentTarget.style.color = 'var(--admin-text-primary)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.background = 'transparent';
+                        e.currentTarget.style.color = 'var(--admin-text-secondary)';
+                      }
+                    }}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className={`p-2 rounded-xl transition-all ${isActive ? 'bg-white/10 text-white' : 'bg-transparent text-zinc-600 group-hover:text-white'}`}>
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg transition-all" style={{
+                        background: isActive ? 'rgba(108, 92, 231, 0.15)' : 'transparent',
+                        color: isActive ? 'var(--admin-active-text)' : 'var(--admin-text-muted)',
+                      }}>
                         <item.icon className="w-5 h-5" />
                       </div>
                       {item.label}
                     </div>
-                    {isActive && <ChevronRight className="w-4 h-4 text-zinc-600" />}
+                    {isActive && <ChevronRight className="w-4 h-4" style={{ color: 'var(--admin-active-text)' }} />}
                   </Link>
                 );
               })}
-            </div>
+            </nav>
             
-            <div className="p-4 border-t border-white/10">
+            <div className="p-4" style={{ borderTop: '1px solid var(--admin-border)' }}>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-4 px-5 py-4 text-zinc-600 hover:text-red-400 w-full rounded-2xl font-bold transition-all group hover:bg-red-500/5"
+                className="flex items-center gap-3 px-4 py-3.5 w-full rounded-xl font-semibold transition-all group"
+                style={{ color: 'var(--admin-text-muted)' }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'var(--admin-accent-light)';
+                  e.currentTarget.style.color = 'var(--admin-accent)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.color = 'var(--admin-text-muted)';
+                }}
               >
-                <div className="p-2 rounded-xl bg-transparent group-hover:bg-red-500/10 text-zinc-700 group-hover:text-red-500 transition-all">
+                <div className="p-2 rounded-lg transition-all">
                   <LogOut className="w-5 h-5" />
                 </div>
                 Sair
@@ -134,13 +194,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 md:p-8 lg:p-12 mt-20 md:mt-0 max-h-screen overflow-y-auto">
-        <div className="w-full h-full">
+      <main className="flex-1 md:p-8 lg:p-10 mt-20 md:mt-0 max-h-screen overflow-y-auto p-4 pb-24 md:pb-4">
+        <div className="w-full h-full max-w-7xl mx-auto">
           {children}
         </div>
       </main>
 
-      {/* Overlay for mobile when sidebar is open */}
+      {/* Mobile Bottom Navigation */}
+      <BottomMenuBar
+        items={navItems.slice(0, 5).map(item => ({ icon: item.icon, label: item.label, href: item.href }))}
+      />
+
+      {/* Overlay for mobile */}
       <AnimatePresence>
         {isSidebarOpen && (
           <motion.div 
@@ -148,7 +213,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsSidebarOpen(false)}
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 md:hidden"
+            style={{ background: 'rgba(0,0,0,0.25)', backdropFilter: 'blur(4px)' }}
           />
         )}
       </AnimatePresence>

@@ -71,11 +71,10 @@ export default function Bazar() {
                <div className="absolute -inset-4 bg-sky-500/10 blur-[100px] rounded-full pointer-events-none" />
                <div className="relative h-[600px] md:h-[700px] rounded-[2.5rem] overflow-hidden border border-white/10">
                  <Image
-                   src="https://images.unsplash.com/photo-1489987707023-afc6e441612f?q=80&w=800&auto=format&fit=crop"
+                   src="/images/bazar/bazar-roupas.jpg"
                    alt="Roupas do Bazar"
                    fill
                    className="object-cover"
-                   referrerPolicy="no-referrer"
                  />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                  <div className="absolute bottom-8 left-8 right-8">

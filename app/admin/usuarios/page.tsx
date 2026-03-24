@@ -39,25 +39,44 @@ export default function UsersPage() {
     fetchUsers();
   }, []);
 
+  const roleBadge = (role: string) => {
+    const map: Record<string, { bg: string; text: string; border: string }> = {
+      ADMIN: { bg: '#E6FFF9', text: '#00B894', border: '#00B89430' },
+      LEADER: { bg: '#EDF5FF', text: '#0984E3', border: '#0984E330' },
+      USER: { bg: '#F5F6FA', text: '#6B7085', border: '#E8EAF0' },
+    };
+    const style = map[role] || map.USER;
+    return (
+      <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold uppercase tracking-wider" style={{
+        background: style.bg, color: style.text, border: `1px solid ${style.border}`
+      }}>
+        {role}
+      </span>
+    );
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2 font-display">Usuários do Sistema</h1>
-          <p className="text-zinc-400">Gerencie contas, permissões e acessos.</p>
+          <h1 className="text-2xl md:text-3xl font-bold mb-1 font-display" style={{ color: 'var(--admin-text-primary)' }}>Usuários do Sistema</h1>
+          <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>Gerencie contas, permissões e acessos.</p>
         </div>
         <div className="flex gap-3">
           <button 
             onClick={fetchUsers}
-            className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-white/10 text-white rounded-lg hover:bg-zinc-800 transition-colors text-sm"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all text-sm"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Atualizar
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-white text-black font-semibold rounded-lg hover:bg-zinc-200 transition-colors text-sm">
+          <button className="flex items-center gap-2 px-4 py-2.5 font-semibold rounded-xl transition-all text-sm" style={{
+            background: 'var(--admin-active-text)', color: '#fff', boxShadow: '0 4px 12px rgba(108, 92, 231, 0.25)'
+          }}>
             Adicionar Usuário
           </button>
         </div>
@@ -66,88 +85,92 @@ export default function UsersPage() {
       {/* Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-zinc-500" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: 'var(--admin-text-muted)' }} />
           <input
             type="text"
             placeholder="Buscar por nome ou e-mail..."
-            className="w-full bg-zinc-900 border border-white/10 rounded-xl pl-10 pr-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors"
+            className="w-full rounded-xl pl-12 pr-4 py-3 text-sm focus:outline-none transition-all"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-primary)', boxShadow: 'var(--admin-shadow-sm)' }}
           />
         </div>
-        <div className="flex gap-4">
-          <select className="bg-zinc-900 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors appearance-none min-w-[150px]">
+        <div className="flex gap-3">
+          <select className="rounded-xl px-4 py-3 text-sm focus:outline-none transition-all appearance-none min-w-[150px]"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
             <option value="">Todos os Cargos</option>
             <option value="USER">Usuário Comum</option>
             <option value="LEADER">Líder</option>
             <option value="ADMIN">Administrador</option>
           </select>
-          <button className="flex items-center gap-2 px-4 py-3 bg-zinc-900 border border-white/10 text-white rounded-xl hover:bg-zinc-800 transition-colors">
+          <button className="flex items-center gap-2 px-4 py-3 rounded-xl transition-all"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
             <Filter className="w-5 h-5" /> Filtros
           </button>
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/10 bg-black/20">
-                <th className="p-4 text-sm font-medium text-zinc-400">Usuário</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Permissão</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Data de Cadastro</th>
-                <th className="p-4 text-sm font-medium text-zinc-400 text-right">Ações</th>
+              <tr style={{ borderBottom: '1px solid var(--admin-border)', background: 'var(--admin-bg)' }}>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Usuário</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Permissão</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Data de Cadastro</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider text-right" style={{ color: 'var(--admin-text-muted)' }}>Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-zinc-500">
+                  <td colSpan={4} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
                     Carregando usuários...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-zinc-500">
+                  <td colSpan={4} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
                     Nenhum usuário encontrado no sistema.
                   </td>
                 </tr>
               ) : (
                 users.map((user) => (
-                  <tr key={user.id} className="hover:bg-white/5 transition-colors group">
+                  <tr key={user.id} className="group transition-colors" style={{ borderBottom: '1px solid var(--admin-border)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--admin-bg)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+                  >
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center flex-shrink-0">
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{
+                          background: user.role === 'ADMIN' ? '#E6FFF9' : '#F5F0FF',
+                          color: user.role === 'ADMIN' ? '#00B894' : '#6C5CE7',
+                        }}>
                           {user.role === 'ADMIN' ? (
-                            <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                            <ShieldCheck className="w-5 h-5" />
                           ) : (
-                            <UserIcon className="w-5 h-5 text-zinc-400" />
+                            <UserIcon className="w-5 h-5" />
                           )}
                         </div>
                         <div>
-                          <p className="text-white font-medium text-sm">{user.name}</p>
-                          <div className="flex items-center gap-3 text-xs text-zinc-500 mt-1">
+                          <p className="font-semibold text-sm" style={{ color: 'var(--admin-text-primary)' }}>{user.name}</p>
+                          <div className="flex items-center gap-3 text-xs mt-0.5" style={{ color: 'var(--admin-text-muted)' }}>
                             <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {user.email}</span>
                             {user.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {user.phone}</span>}
                           </div>
                         </div>
                       </div>
                     </td>
+                    <td className="p-4">{roleBadge(user.role)}</td>
                     <td className="p-4">
-                      <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium uppercase tracking-wider
-                        ${user.role === 'ADMIN' ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 
-                          user.role === 'LEADER' ? 'bg-blue-500/10 text-blue-500 border border-blue-500/20' : 
-                          'bg-white/10 text-zinc-300 border border-white/10'}`}
-                      >
-                        {user.role}
-                      </span>
-                    </td>
-                    <td className="p-4">
-                      <div className="flex flex-col text-sm text-zinc-400">
-                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {new Date(user.createdAt).toLocaleDateString('pt-BR')}</span>
+                      <div className="flex items-center gap-1 text-sm" style={{ color: 'var(--admin-text-secondary)' }}>
+                        <Calendar className="w-3.5 h-3.5" /> {new Date(user.createdAt).toLocaleDateString('pt-BR')}
                       </div>
                     </td>
                     <td className="p-4 text-right">
-                      <button className="p-2 text-zinc-400 hover:text-white transition-colors opacity-0 group-hover:opacity-100">
+                      <button className="p-2 rounded-lg transition-all opacity-0 group-hover:opacity-100" style={{ color: 'var(--admin-text-muted)' }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--admin-hover-bg)'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
+                      >
                         <MoreVertical className="w-5 h-5" />
                       </button>
                     </td>

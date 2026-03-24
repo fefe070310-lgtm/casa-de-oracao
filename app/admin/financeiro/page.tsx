@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Wallet, TrendingUp, DollarSign, Plus, RefreshCw, Calendar, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Wallet, TrendingUp, DollarSign, Plus, RefreshCw, Calendar, ArrowUpRight } from 'lucide-react';
 
 type DonationStats = {
   totalAmount: number;
@@ -77,107 +77,100 @@ export default function FinanceiroPage() {
 
   const maxVal = Math.max(...chartData.map(d => d.value), 1000);
 
+  const financeCards = [
+    { icon: Wallet, label: 'Receita Histórica', value: formatCurrency(stats.totalAmount), color: '#E17055', bg: '#FFF4F0', badge: '12%' },
+    { icon: TrendingUp, label: 'Receita do Mês', value: formatCurrency(stats.monthlyTotal), color: '#00B894', bg: '#E6FFF9' },
+    { icon: DollarSign, label: 'Doações Totais', value: stats.totalDonations, color: '#0984E3', bg: '#EDF5FF' },
+    { icon: Calendar, label: 'Mensalidade Ativa', value: stats.monthlyDonations, color: '#6C5CE7', bg: '#F5F0FF' },
+  ];
+
+  const inputStyle = {
+    background: 'var(--admin-bg)',
+    border: '1px solid var(--admin-border)',
+    color: 'var(--admin-text-primary)',
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="p-8 pb-32"
+      className="pb-32"
     >
-      <div className="flex justify-between items-end mb-12">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-10">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2 font-display">Gestão Financeira</h1>
-          <p className="text-zinc-400">Controle de dízimos, ofertas e doações sociais.</p>
+          <h1 className="text-2xl md:text-3xl font-bold mb-1 font-display" style={{ color: 'var(--admin-text-primary)' }}>Gestão Financeira</h1>
+          <p className="text-sm" style={{ color: 'var(--admin-text-muted)' }}>Controle de dízimos, ofertas e doações sociais.</p>
         </div>
-        <div className="flex gap-4">
-           {/* Botões de Ação */}
-          <button onClick={fetchDonations} className="flex items-center gap-2 px-4 py-2 bg-zinc-900 border border-white/10 text-white rounded-lg hover:bg-zinc-800 transition-colors text-sm">
+        <div className="flex gap-3">
+          <button onClick={fetchDonations} className="flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all text-sm"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', color: 'var(--admin-text-secondary)', boxShadow: 'var(--admin-shadow-sm)' }}>
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Atualizar
           </button>
-          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 bg-white text-black font-semibold rounded-lg hover:bg-zinc-200 transition-colors text-sm">
+          <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2.5 font-semibold rounded-xl transition-all text-sm"
+            style={{ background: 'var(--admin-active-text)', color: '#fff', boxShadow: '0 4px 12px rgba(108, 92, 231, 0.25)' }}>
             <Plus className="w-4 h-4" /> Registrar Doação
           </button>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-red-500/30 transition-colors group">
-          <div className="flex justify-between items-start mb-6">
-            <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center group-hover:bg-red-500/20 transition-colors">
-              <Wallet className="w-6 h-6 text-red-500" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        {financeCards.map((card, i) => (
+          <motion.div key={card.label}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: i * 0.08 }}
+            className="rounded-2xl p-5 transition-all"
+            style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div className="w-11 h-11 rounded-xl flex items-center justify-center" style={{ background: card.bg, color: card.color }}>
+                <card.icon className="w-5 h-5" />
+              </div>
+              {card.badge && (
+                <span className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full" style={{ color: card.color, background: card.bg }}>
+                  <ArrowUpRight className="w-3 h-3" /> {card.badge}
+                </span>
+              )}
             </div>
-            <div className="flex items-center gap-1 text-red-500 text-xs font-bold bg-red-500/10 px-2 py-1 rounded-full uppercase tracking-widest">
-               <ArrowUpRight className="w-3 h-3" /> 12%
-            </div>
-          </div>
-          <h3 className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1">Receita Histórica</h3>
-          <p className="text-3xl font-black text-white font-display tracking-tighter">{formatCurrency(stats.totalAmount)}</p>
-        </div>
-        
-        <div className="bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-red-500/30 transition-colors group">
-          <div className="flex justify-between items-start mb-6">
-            <div className="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center group-hover:bg-orange-500/20 transition-colors">
-              <TrendingUp className="w-6 h-6 text-orange-500" />
-            </div>
-          </div>
-          <h3 className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1">Receita do Mês</h3>
-          <p className="text-3xl font-black text-white font-display tracking-tighter">{formatCurrency(stats.monthlyTotal)}</p>
-        </div>
-
-        <div className="bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-red-500/30 transition-colors group">
-          <div className="flex justify-between items-start mb-6">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors">
-              <DollarSign className="w-6 h-6 text-blue-500" />
-            </div>
-          </div>
-          <h3 className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1">Doações Totais</h3>
-          <p className="text-3xl font-black text-white font-display tracking-tighter">{stats.totalDonations}</p>
-        </div>
-
-        <div className="bg-zinc-900 border border-white/10 rounded-3xl p-6 hover:border-red-500/30 transition-colors group">
-          <div className="flex justify-between items-start mb-6">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
-              <Calendar className="w-6 h-6 text-purple-500" />
-            </div>
-          </div>
-          <h3 className="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-1">Mensalidade Ativa</h3>
-          <p className="text-3xl font-black text-white font-display tracking-tighter">{stats.monthlyDonations}</p>
-        </div>
+            <h3 className="text-[11px] font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--admin-text-muted)' }}>{card.label}</h3>
+            <p className="text-2xl font-bold font-display tracking-tight" style={{ color: 'var(--admin-text-primary)' }}>{card.value}</p>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Financial Chart Section */}
-      <div className="bg-zinc-900/50 backdrop-blur-xl border border-white/5 rounded-[2.5rem] p-10 mb-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 rounded-full blur-[120px] -mr-32 -mt-32" />
-        
-        <div className="flex items-center justify-between mb-12 relative z-10">
+      {/* Chart */}
+      <div className="rounded-2xl p-8 mb-8 relative overflow-hidden" style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-black text-white font-display tracking-tighter">Fluxo de Caixa</h2>
-            <p className="text-xs text-zinc-500 font-bold uppercase tracking-widest mt-1">Comparativo de performance semestral</p>
+            <h2 className="text-lg font-bold font-display" style={{ color: 'var(--admin-text-primary)' }}>Fluxo de Caixa</h2>
+            <p className="text-xs mt-1" style={{ color: 'var(--admin-text-muted)' }}>Comparativo de performance semestral</p>
           </div>
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-red-600" />
-              <span className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">Entradas</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2.5 h-2.5 rounded-full" style={{ background: '#6C5CE7' }} />
+            <span className="text-xs font-semibold" style={{ color: 'var(--admin-text-muted)' }}>Entradas</span>
           </div>
         </div>
- 
-        <div className="h-72 w-full flex items-end justify-between gap-3 md:gap-6 px-4 relative z-10">
+
+        <div className="h-64 w-full flex items-end justify-between gap-3 md:gap-6 px-4">
           {chartData.map((item, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-6 group">
-               <div className="relative w-full flex justify-center items-end h-full">
-                  <motion.div 
-                    initial={{ height: 0 }}
-                    animate={{ height: `${(item.value / maxVal) * 100}%` }}
-                    transition={{ duration: 1.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-[48px] bg-gradient-to-t from-red-600 to-red-400 rounded-2xl relative group-hover:from-red-500 group-hover:to-red-300 transition-all shadow-2xl shadow-red-600/20"
-                  >
-                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-black text-[9px] font-black px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 whitespace-nowrap shadow-xl">
-                       {formatCurrency(item.value)}
-                    </div>
-                  </motion.div>
-               </div>
-               <span className="text-[10px] font-black text-zinc-600 uppercase tracking-[0.2em] group-hover:text-white transition-colors">{item.month}</span>
+            <div key={i} className="flex-1 flex flex-col items-center gap-4 group">
+              <div className="relative w-full flex justify-center items-end h-full">
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: `${(item.value / maxVal) * 100}%` }}
+                  transition={{ duration: 1.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full max-w-[48px] rounded-xl relative transition-all"
+                  style={{ background: 'linear-gradient(to top, #6C5CE7, #a29bfe)' }}
+                >
+                  <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-[9px] font-bold px-3 py-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0 whitespace-nowrap"
+                    style={{ background: 'var(--admin-text-primary)', color: '#fff', boxShadow: 'var(--admin-shadow-md)' }}>
+                    {formatCurrency(item.value)}
+                  </div>
+                </motion.div>
+              </div>
+              <span className="text-[10px] font-semibold uppercase tracking-wider transition-colors" style={{ color: 'var(--admin-text-muted)' }}>{item.month}</span>
             </div>
           ))}
         </div>
@@ -185,18 +178,19 @@ export default function FinanceiroPage() {
 
       {/* Create Form */}
       {showForm && (
-        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} className="bg-zinc-900 border border-white/10 rounded-2xl p-6 mb-8">
-          <h2 className="text-xl font-bold text-white mb-6 font-display">Registrar Nova Doação</h2>
+        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}
+          className="rounded-2xl p-6 mb-8" style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
+          <h2 className="text-lg font-bold mb-6 font-display" style={{ color: 'var(--admin-text-primary)' }}>Registrar Nova Doação</h2>
           <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Valor (R$)</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Valor (R$)</label>
               <input type="number" step="0.01" required value={formData.amount} onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="0.00" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} placeholder="0.00" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Tipo</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Tipo</label>
               <select value={formData.type} onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors appearance-none">
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all appearance-none" style={inputStyle}>
                 <option value="PIX">PIX</option>
                 <option value="CreditCard">Cartão de Crédito</option>
                 <option value="Recorrente">Recorrente</option>
@@ -204,13 +198,14 @@ export default function FinanceiroPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-400 mb-2">Nome do Doador</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--admin-text-secondary)' }}>Nome do Doador</label>
               <input type="text" value={formData.donorName} onChange={(e) => setFormData({ ...formData, donorName: e.target.value })}
-                className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-white/30 transition-colors" placeholder="Anônimo (opcional)" />
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all" style={inputStyle} placeholder="Anônimo (opcional)" />
             </div>
             <div className="md:col-span-3 flex justify-end gap-3 mt-2">
-              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 text-zinc-400 hover:text-white transition-colors">Cancelar</button>
-              <button type="submit" disabled={saving} className="px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-zinc-200 transition-colors disabled:opacity-50">
+              <button type="button" onClick={() => setShowForm(false)} className="px-6 py-3 transition-colors rounded-xl" style={{ color: 'var(--admin-text-muted)' }}>Cancelar</button>
+              <button type="submit" disabled={saving} className="px-6 py-3 font-semibold rounded-xl transition-all disabled:opacity-50"
+                style={{ background: 'var(--admin-active-text)', color: '#fff' }}>
                 {saving ? 'Salvando...' : 'Registrar Doação'}
               </button>
             </div>
@@ -219,34 +214,36 @@ export default function FinanceiroPage() {
       )}
 
       {/* Donations Table */}
-      <div className="bg-zinc-900 border border-white/10 rounded-2xl overflow-hidden">
+      <div className="rounded-2xl overflow-hidden" style={{ background: 'var(--admin-card)', border: '1px solid var(--admin-border)', boxShadow: 'var(--admin-shadow-sm)' }}>
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/10 bg-black/20">
-                <th className="p-4 text-sm font-medium text-zinc-400">Doador</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Valor</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Tipo</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Data</th>
-                <th className="p-4 text-sm font-medium text-zinc-400">Status</th>
+              <tr style={{ borderBottom: '1px solid var(--admin-border)', background: 'var(--admin-bg)' }}>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Doador</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Valor</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Tipo</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Data</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody>
               {loading ? (
-                <tr><td colSpan={5} className="p-8 text-center text-zinc-500">Carregando doações...</td></tr>
+                <tr><td colSpan={5} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>Carregando doações...</td></tr>
               ) : donations.length === 0 ? (
-                <tr><td colSpan={5} className="p-8 text-center text-zinc-500">Nenhuma doação registrada.</td></tr>
+                <tr><td colSpan={5} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>Nenhuma doação registrada.</td></tr>
               ) : (
                 donations.map((donation) => (
-                  <tr key={donation.id} className="hover:bg-white/5 transition-colors">
-                    <td className="p-4 text-white text-sm font-medium">{donation.donorName || donation.user?.name || 'Anônimo'}</td>
-                    <td className="p-4 text-emerald-500 font-bold text-sm">{formatCurrency(donation.amount)}</td>
+                  <tr key={donation.id} className="transition-colors" style={{ borderBottom: '1px solid var(--admin-border)' }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--admin-bg)'; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}>
+                    <td className="p-4 text-sm font-semibold" style={{ color: 'var(--admin-text-primary)' }}>{donation.donorName || donation.user?.name || 'Anônimo'}</td>
+                    <td className="p-4 font-bold text-sm" style={{ color: '#00B894' }}>{formatCurrency(donation.amount)}</td>
                     <td className="p-4">
-                      <span className="inline-flex items-center px-2 py-1 rounded-md bg-white/10 text-zinc-300 text-xs font-medium">{donation.type}</span>
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold" style={{ background: 'var(--admin-bg)', color: 'var(--admin-text-secondary)', border: '1px solid var(--admin-border)' }}>{donation.type}</span>
                     </td>
-                    <td className="p-4 text-zinc-400 text-sm">{new Date(donation.createdAt).toLocaleDateString('pt-BR')}</td>
+                    <td className="p-4 text-sm" style={{ color: 'var(--admin-text-secondary)' }}>{new Date(donation.createdAt).toLocaleDateString('pt-BR')}</td>
                     <td className="p-4">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 text-xs font-medium border border-emerald-500/20">{donation.status}</span>
+                      <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold" style={{ background: '#E6FFF9', color: '#00B894', border: '1px solid #00B89430' }}>{donation.status}</span>
                     </td>
                   </tr>
                 ))
