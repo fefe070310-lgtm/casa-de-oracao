@@ -24,26 +24,31 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="relative min-h-[92vh] flex items-center justify-center py-16 md:py-20 overflow-hidden">
+        <section className="relative min-h-[92vh] flex items-center justify-center py-16 md:py-20 overflow-hidden bg-white">
           {/* Background Layer with Whiteboard Image */}
           <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <motion.div 
               style={{ 
-                opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0.4]),
+                opacity: useTransform(scrollYProgress, [0, 0.2], [1, 0.2]),
                 scale: shouldReduceMotion ? 1 : backgroundScale 
               }}
               className="relative w-full h-full"
             >
+              {/* Base Branca para o Blend Mode funcionar corretamente */}
+              <div className="absolute inset-0 bg-white" />
+              
+              {/* Imagem com Blend Multiply e Opacidade Reduzida */}
               <Image
                 src="/quadro-oracoes.jpg"
-                alt="Background de Pedidos de Oração"
+                alt="Pedidos de Oração"
                 fill
-                className="object-cover object-center"
+                className="object-cover object-left md:object-center opacity-[0.4] md:opacity-[0.6] mix-blend-multiply contrast-125 saturate-150"
                 priority
               />
-              {/* Overlay suave para melhorar a legibilidade do texto escuro no quadro claro */}
-              <div className="absolute inset-0 bg-white/40 mix-blend-lighten" />
-              <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-white/90" />
+
+              {/* Gradient Radial para proteger a área central onde entra o H1 */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.6)_0%,rgba(255,255,255,0)_60%,rgba(255,255,255,0)_100%)]" />
+              <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/90" />
             </motion.div>
           </div>
 
