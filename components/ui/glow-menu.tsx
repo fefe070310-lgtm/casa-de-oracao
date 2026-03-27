@@ -56,7 +56,7 @@ export function MenuBar({ className, items, activeItem, onItemClick }: MenuBarPr
   return (
     <motion.nav
       className={cn(
-        "p-2 rounded-2xl bg-black/60 backdrop-blur-lg shadow-lg relative overflow-hidden",
+        "p-2 rounded-2xl bg-white/80 backdrop-blur-lg shadow-xl border border-zinc-100 relative overflow-hidden",
         className,
       )}
       initial="initial"
@@ -97,8 +97,8 @@ export function MenuBar({ className, items, activeItem, onItemClick }: MenuBarPr
                     className={cn(
                       "flex flex-col sm:flex-row items-center justify-center sm:gap-2 px-2 sm:px-4 py-2 relative z-10 bg-transparent transition-colors rounded-xl",
                       isActive
-                        ? "text-white"
-                        : "text-zinc-400 group-hover:text-white",
+                        ? "text-zinc-900"
+                        : "text-zinc-500 group-hover:text-zinc-900",
                     )}
                     variants={itemVariants}
                     transition={sharedTransition}
@@ -110,7 +110,7 @@ export function MenuBar({ className, items, activeItem, onItemClick }: MenuBarPr
                     <span
                       className={cn(
                         "transition-colors duration-300",
-                        isActive ? item.iconColor : "text-white",
+                        isActive ? item.iconColor : "text-zinc-500",
                       )}
                     >
                       <Icon className="h-5 w-5" />
@@ -121,8 +121,8 @@ export function MenuBar({ className, items, activeItem, onItemClick }: MenuBarPr
                     className={cn(
                       "flex flex-col sm:flex-row items-center justify-center sm:gap-2 px-2 sm:px-4 py-2 absolute inset-0 z-10 bg-transparent transition-colors rounded-xl",
                       isActive
-                        ? "text-white"
-                        : "text-zinc-400 group-hover:text-white",
+                        ? "text-zinc-900"
+                        : "text-zinc-500 group-hover:text-zinc-900",
                     )}
                     variants={backVariants}
                     transition={sharedTransition}
@@ -135,7 +135,7 @@ export function MenuBar({ className, items, activeItem, onItemClick }: MenuBarPr
                     <span
                       className={cn(
                         "transition-colors duration-300",
-                        isActive ? item.iconColor : "text-white",
+                        isActive ? item.iconColor : "text-zinc-500",
                       )}
                     >
                       <Icon className="h-5 w-5" />

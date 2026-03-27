@@ -46,9 +46,10 @@ export default function AdminLogin() {
   };
 
   return (
-    <HeroGeometric>
+    <HeroGeometric theme="light">
       <div className="relative">
         <SignInCard
+          theme="light"
           title="Acesso Restrito"
           subtitle="Área exclusiva para administradores da plataforma."
           logoIcon={<img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}
@@ -77,7 +78,7 @@ export default function AdminLogin() {
               const res = await fetch('/api/auth/bypass', { method: 'POST' });
               if (res.ok) router.push('/admin');
             }}
-            className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/40 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all"
+            className="px-4 py-2 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-400 text-[10px] font-bold uppercase tracking-widest hover:bg-zinc-200 hover:text-zinc-600 transition-all"
           >
              Acesso Rápido (Sem Login)
           </button>

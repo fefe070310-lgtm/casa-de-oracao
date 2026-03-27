@@ -12,6 +12,7 @@ import {
   Wallet, 
   Megaphone, 
   HeartPulse,
+  MessageSquare,
   Menu,
   X,
   ChevronRight
@@ -42,6 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const navItems = [
     { href: '/admin', icon: BarChart3, label: 'Dashboard' },
     { href: '/admin/usuarios', icon: Users, label: 'Usuários' },
+    { href: '/admin/mensagens', icon: MessageSquare, label: 'Mensagens / Chat' },
     { href: '/admin/leads', icon: Megaphone, label: 'Leads / Voluntários' },
     { href: '/admin/oracoes', icon: HeartPulse, label: 'Pedidos de Oração' },
     { href: '/admin/financeiro', icon: Wallet, label: 'Financeiro' },
@@ -54,22 +56,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="min-h-screen flex flex-col md:flex-row antialiased" style={{ background: 'var(--admin-bg)' }}>
       <style jsx global>{`
         :root {
-          --admin-bg: #F5F6FA;
+          --admin-bg: #F8FAFC;
           --admin-sidebar: #FFFFFF;
           --admin-card: #FFFFFF;
-          --admin-border: #E8EAF0;
-          --admin-text-primary: #1A1D26;
-          --admin-text-secondary: #6B7085;
-          --admin-text-muted: #9CA0B0;
-          --admin-accent: #E8443A;
-          --admin-accent-light: #FEF2F1;
-          --admin-accent-hover: #D63A30;
-          --admin-hover-bg: #F0F1F6;
-          --admin-active-bg: #F5F0FF;
-          --admin-active-text: #6C5CE7;
-          --admin-shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-          --admin-shadow-md: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-          --admin-shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+          --admin-border: #E2E8F0;
+          --admin-text-primary: #0F172A;
+          --admin-text-secondary: #475569;
+          --admin-text-muted: #94A3B8;
+          --admin-accent: #EF4444;
+          --admin-accent-light: #FEF2F2;
+          --admin-accent-hover: #DC2626;
+          --admin-hover-bg: #F1F5F9;
+          --admin-active-bg: #FEF2F2;
+          --admin-active-text: #EF4444;
+          --admin-shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+          --admin-shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+          --admin-shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
         }
       `}</style>
 
@@ -202,7 +204,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Mobile Bottom Navigation */}
       <BottomMenuBar
-        items={navItems.slice(0, 5).map(item => ({ icon: item.icon, label: item.label, href: item.href }))}
+        items={navItems.slice(0, 5).map(item => ({ 
+          icon: item.icon, 
+          label: item.label === 'Leads / Voluntários' ? 'Leads' : item.label === 'Pedidos de Oração' ? 'Orações' : item.label, 
+          href: item.href 
+        }))}
       />
 
       {/* Overlay for mobile */}

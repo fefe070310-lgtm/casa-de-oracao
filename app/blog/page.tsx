@@ -46,9 +46,9 @@ const posts = [
 
 export default function Blog() {
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-[#fafafa]">
       {/* Hero Section */}
-      <section className="relative py-24 md:py-32 overflow-hidden border-b border-white/10">
+       <section className="relative py-24 md:py-32 overflow-hidden border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -56,13 +56,13 @@ export default function Blog() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-8 border border-white/20">
-              <BookOpen className="w-8 h-8 text-white" />
+             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-zinc-100 mb-8 border border-zinc-200 shadow-sm">
+              <BookOpen className="w-8 h-8 text-zinc-600" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 font-display tracking-tight">
+             <h1 className="text-4xl md:text-6xl font-bold text-zinc-900 mb-6 font-display tracking-tight">
               Blog & Conteúdos
             </h1>
-            <p className="text-xl text-zinc-400 leading-relaxed font-light mb-10">
+             <p className="text-xl text-zinc-600 leading-relaxed font-light mb-10">
               Artigos, devocionais, testemunhos e estudos bíblicos para edificar a sua vida e expandir a sua visão do Reino.
             </p>
           </motion.div>
@@ -70,12 +70,12 @@ export default function Blog() {
       </section>
 
       {/* Lista de Posts */}
-      <section className="py-24 bg-zinc-950">
+       <section className="py-24 bg-[#fafafa]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Destaque */}
-          <div className="mb-16">
-            <div className="bg-black rounded-3xl border border-white/10 overflow-hidden group hover:border-white/30 transition-colors flex flex-col lg:flex-row">
+           <div className="mb-16">
+            <div className="bg-white rounded-3xl border border-zinc-100 overflow-hidden group hover:border-zinc-200 transition-colors flex flex-col lg:flex-row shadow-xl shadow-zinc-200/50">
               <div className="relative h-64 lg:h-auto lg:w-1/2 overflow-hidden">
                 <Image
                   src={posts[0].image}
@@ -87,17 +87,17 @@ export default function Blog() {
               </div>
               <div className="p-8 lg:p-12 lg:w-1/2 flex flex-col justify-center">
                 <div className="flex items-center gap-4 mb-6">
-                  <span className="text-xs font-medium px-3 py-1 bg-white/10 text-white rounded-full border border-white/20">
+                   <span className="text-xs font-medium px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full border border-zinc-200">
                     {posts[0].category}
                   </span>
                   <span className="flex items-center gap-2 text-xs text-zinc-500">
                     <Calendar className="w-4 h-4" /> {posts[0].date}
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-display leading-tight">
+                 <h2 className="text-3xl md:text-4xl font-bold text-zinc-900 mb-4 font-display leading-tight">
                   {posts[0].title}
                 </h2>
-                <p className="text-zinc-400 text-lg leading-relaxed mb-8">
+                 <p className="text-zinc-600 text-lg leading-relaxed mb-8">
                   {posts[0].excerpt}
                 </p>
                 <div className="flex items-center justify-between mt-auto">
@@ -107,8 +107,8 @@ export default function Blog() {
                     </div>
                     {posts[0].author}
                   </div>
-                  <Link href="#" className="flex items-center gap-2 text-white font-medium hover:text-zinc-300 transition-colors">
-                    Ler artigo <ArrowRight className="w-4 h-4" />
+                   <Link href="#" className="flex items-center gap-2 text-zinc-900 font-medium hover:text-zinc-600 transition-colors">
+                    Ler artigo <ArrowRight className="w-4 h-4 text-emerald-600" />
                   </Link>
                 </div>
               </div>
@@ -117,8 +117,8 @@ export default function Blog() {
 
           {/* Grid de Posts */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.slice(1).map((post) => (
-              <div key={post.id} className="bg-black rounded-3xl border border-white/10 overflow-hidden group hover:border-white/30 transition-colors flex flex-col">
+             {posts.slice(1).map((post) => (
+              <div key={post.id} className="bg-white rounded-3xl border border-zinc-100 overflow-hidden group hover:border-zinc-200 transition-colors flex flex-col shadow-sm hover:shadow-xl shadow-zinc-200/50">
                 <div className="relative h-56 w-full overflow-hidden">
                   <Image
                     src={post.image}
@@ -128,7 +128,7 @@ export default function Blog() {
                     referrerPolicy="no-referrer"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="text-xs font-medium px-3 py-1 bg-black/60 backdrop-blur-md text-white rounded-full border border-white/20">
+                     <span className="text-xs font-medium px-3 py-1 bg-white/10 backdrop-blur-md text-white rounded-full border border-white/20">
                       {post.category}
                     </span>
                   </div>
@@ -137,18 +137,18 @@ export default function Blog() {
                   <div className="flex items-center gap-2 text-xs text-zinc-500 mb-4">
                     <Calendar className="w-4 h-4" /> {post.date}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3 font-display leading-snug">
+                   <h3 className="text-2xl font-bold text-zinc-900 mb-3 font-display leading-snug">
                     {post.title}
                   </h3>
-                  <p className="text-zinc-400 leading-relaxed mb-6 flex-1">
+                   <p className="text-zinc-600 leading-relaxed mb-6 flex-1">
                     {post.excerpt}
                   </p>
-                  <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/10">
+                   <div className="flex items-center justify-between mt-auto pt-6 border-t border-zinc-50">
                     <div className="flex items-center gap-2 text-sm text-zinc-500">
                       <User className="w-4 h-4" />
                       {post.author}
                     </div>
-                    <Link href="#" className="text-white hover:text-zinc-300 transition-colors">
+                     <Link href="#" className="text-zinc-900 hover:text-zinc-600 transition-colors shadow-sm bg-zinc-50 p-2 rounded-full border border-zinc-100">
                       <ArrowRight className="w-5 h-5" />
                     </Link>
                   </div>
@@ -157,8 +157,8 @@ export default function Blog() {
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <button className="px-8 py-4 bg-white/5 text-white font-medium rounded-full hover:bg-white hover:text-black transition-colors border border-white/10">
+           <div className="mt-16 text-center">
+            <button className="px-8 py-4 bg-zinc-900 text-white font-medium rounded-full hover:bg-black transition-colors shadow-lg shadow-black/10">
               Carregar mais artigos
             </button>
           </div>

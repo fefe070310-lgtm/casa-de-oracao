@@ -49,10 +49,10 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 py-4 bg-black/80 backdrop-blur-xl border-b border-white/5 mx-auto transition-all">
+      <header className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 md:px-12 py-4 bg-white/80 backdrop-blur-xl border-b border-zinc-100 mx-auto transition-all">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 group">
-          <span className="text-xl md:text-2xl font-bold font-display tracking-tighter text-white">
+          <span className="text-xl md:text-2xl font-bold font-display tracking-tighter text-zinc-900">
             CASA<span className="text-red-600">JUMP</span>
           </span>
         </Link>
@@ -68,7 +68,7 @@ export function Navbar() {
             <Link href="/admin/login" className="p-2 text-zinc-500 hover:text-white transition-colors" title="Admin">
               <ShieldCheck className="w-4 h-4" />
             </Link>
-            <Link href="/membros/login" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white bg-white/5 hover:bg-white/10 px-5 py-2.5 rounded-full transition-all border border-white/10">
+            <Link href="/membros/login" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-zinc-900 bg-zinc-100 hover:bg-zinc-200 px-5 py-2.5 rounded-full transition-all border border-zinc-200">
               <User className="w-3.5 h-3.5" />
               <span>Entrar</span>
             </Link>
@@ -77,7 +77,7 @@ export function Navbar() {
           {/* Toggle Mobile Menu */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-white bg-white/5 rounded-xl border border-white/10 active:scale-95 transition-all"
+            className="md:hidden p-2 text-zinc-900 bg-zinc-100 rounded-xl border border-zinc-200 active:scale-95 transition-all"
           >
             {isMenuOpen ? <X className="w-6 h-6 text-red-500" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -92,40 +92,41 @@ export function Navbar() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[55] bg-black bg-gradient-to-br from-black via-zinc-950 to-red-950/20 md:hidden pt-32 px-8 flex flex-col gap-6"
+            className="fixed inset-0 z-[55] bg-white bg-gradient-to-br from-white via-zinc-50 to-red-50/20 md:hidden pt-32 px-5 sm:px-8 pb-10 flex flex-col gap-6 overflow-y-auto"
           >
             <div className="space-y-4">
-              <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-[0.2em] mb-8">Navegação Principal</p>
+              <p className="text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em] mb-8">Navegação Principal</p>
               {navItems.map((item) => {
                 const isActive = item.label === activeItem;
                 const Icon = item.icon;
                 return (
-                  <button
+                  <Link
                     key={item.label}
-                    onClick={() => handleItemClick(item.label, item.href)}
+                    href={item.href}
+                    onClick={() => setIsMenuOpen(false)}
                     className={`w-full flex items-center justify-between p-5 rounded-3xl transition-all border ${
                       isActive 
-                        ? 'bg-white/10 border-white/20 text-white shadow-[0_0_30px_rgba(255,255,255,0.05)]' 
-                        : 'bg-white/5 border-white/5 text-zinc-400'
+                        ? 'bg-zinc-100 border-zinc-200 text-zinc-900 shadow-lg' 
+                        : 'bg-zinc-50 border-zinc-100 text-zinc-500'
                     }`}
                   >
                     <div className="flex items-center gap-4">
-                      <div className={`p-3 rounded-2xl ${isActive ? 'bg-white/10' : 'bg-black/40'}`}>
+                      <div className={`p-3 rounded-2xl ${isActive ? 'bg-white' : 'bg-zinc-200/50'}`}>
                         <Icon className={`w-6 h-6 ${isActive ? item.iconColor : 'text-zinc-500'}`} />
                       </div>
                       <span className="text-xl font-bold font-display">{item.label}</span>
                     </div>
                     {isActive && <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />}
-                  </button>
+                  </Link>
                 );
               })}
             </div>
 
             <div className="mt-auto mb-12 flex flex-col gap-3">
-              <Link href="/membros/login" className="w-full py-5 bg-white text-black text-center font-bold rounded-3xl flex items-center justify-center gap-2 text-lg shadow-xl">
+              <Link href="/membros/login" className="w-full py-5 bg-zinc-900 text-white text-center font-bold rounded-3xl flex items-center justify-center gap-2 text-lg shadow-xl shadow-black/10">
                 <User className="w-5 h-5" /> ÁREA DE MEMBROS
               </Link>
-              <Link href="/admin/login" className="text-center py-4 text-zinc-500 hover:text-white text-sm">
+              <Link href="/admin/login" className="text-center py-4 text-zinc-400 hover:text-zinc-900 text-sm transition-colors">
                 Acesso Administrativo
               </Link>
             </div>

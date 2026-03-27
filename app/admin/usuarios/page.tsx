@@ -116,6 +116,7 @@ export default function UsersPage() {
               <tr style={{ borderBottom: '1px solid var(--admin-border)', background: 'var(--admin-bg)' }}>
                 <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Usuário</th>
                 <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Permissão</th>
+                <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Progresso</th>
                 <th className="p-4 text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--admin-text-muted)' }}>Data de Cadastro</th>
                 <th className="p-4 text-xs font-semibold uppercase tracking-wider text-right" style={{ color: 'var(--admin-text-muted)' }}>Ações</th>
               </tr>
@@ -123,18 +124,18 @@ export default function UsersPage() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+                  <td colSpan={5} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
                     Carregando usuários...
                   </td>
                 </tr>
               ) : users.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
+                  <td colSpan={5} className="p-8 text-center text-sm" style={{ color: 'var(--admin-text-muted)' }}>
                     Nenhum usuário encontrado no sistema.
                   </td>
                 </tr>
               ) : (
-                users.map((user) => (
+                users.map((user: any) => (
                   <tr key={user.id} className="group transition-colors" style={{ borderBottom: '1px solid var(--admin-border)' }}
                     onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--admin-bg)'; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = 'transparent'; }}
@@ -149,18 +150,31 @@ export default function UsersPage() {
                             <ShieldCheck className="w-5 h-5" />
                           ) : (
                             <UserIcon className="w-5 h-5" />
-                          )}
+                          ) }
                         </div>
                         <div>
                           <p className="font-semibold text-sm" style={{ color: 'var(--admin-text-primary)' }}>{user.name}</p>
                           <div className="flex items-center gap-3 text-xs mt-0.5" style={{ color: 'var(--admin-text-muted)' }}>
                             <span className="flex items-center gap-1"><Mail className="w-3 h-3" /> {user.email}</span>
-                            {user.phone && <span className="flex items-center gap-1"><Phone className="w-3 h-3" /> {user.phone}</span>}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="p-4">{roleBadge(user.role)}</td>
+                    <td className="p-4">
+                       <div className="flex flex-col gap-1.5 min-w-[120px]">
+                          <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                             <span>{user.completedLessons} de {user.totalLessons}</span>
+                             <span>{user.totalLessons > 0 ? Math.round((user.completedLessons / user.totalLessons) * 100) : 0}%</span>
+                          </div>
+                          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                             <div 
+                                className="h-full bg-red-500 transition-all duration-1000" 
+                                style={{ width: `${user.totalLessons > 0 ? (user.completedLessons / user.totalLessons) * 100 : 0}%` }}
+                             />
+                          </div>
+                       </div>
+                    </td>
                     <td className="p-4">
                       <div className="flex items-center gap-1 text-sm" style={{ color: 'var(--admin-text-secondary)' }}>
                         <Calendar className="w-3.5 h-3.5" /> {new Date(user.createdAt).toLocaleDateString('pt-BR')}

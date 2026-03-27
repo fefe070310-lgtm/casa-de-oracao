@@ -40,8 +40,9 @@ export default function MembrosLogin() {
   };
 
   return (
-    <HeroGeometric>
+    <HeroGeometric theme="light">
       <SignInCard
+        theme="light"
         title="Área do Membro"
         subtitle="Acesse seus cursos e aulas sobre o Reino de Deus."
         logoIcon={<img src="/logo.png" alt="Logo" className="w-10 h-10 rounded-full object-cover" />}

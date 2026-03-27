@@ -2,12 +2,12 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Clock, BookOpen, Users, PlayCircle, ArrowRight, Shield, Heart, Zap } from 'lucide-react';
+import { Clock, BookOpen, Users, PlayCircle, ArrowRight, Shield, Heart, Zap, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function CasaDeOracao() {
   return (
-    <div className="min-h-screen bg-black selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#fafafa] selection:bg-emerald-500/30">
       {/* Hero Section */}
       <section className="relative min-h-[92svh] md:min-h-[60vh] flex items-center overflow-hidden pt-16 md:pt-0">
         <div className="absolute inset-0 z-0">
@@ -18,8 +18,8 @@ export default function CasaDeOracao() {
             className="object-cover opacity-30 scale-110 blur-[2px]"
             priority
           />
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/80 to-black" />
+          <div className="absolute inset-0 bg-white/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/40 to-[#fafafa]" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20 md:py-24">
@@ -29,14 +29,14 @@ export default function CasaDeOracao() {
             transition={{ duration: 1 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-zinc-400 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 mt-8 md:mt-0">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/10 text-emerald-600 text-[10px] md:text-xs font-bold uppercase tracking-widest mb-6 mt-8 md:mt-0">
               Nossa Essência
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8 font-display tracking-tight leading-none">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-zinc-900 mb-6 md:mb-8 font-display tracking-tight leading-none">
               A Casa de <br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Oração</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-cyan-600">Oração</span>
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-zinc-400 leading-relaxed font-light max-w-2xl px-2">
+            <p className="text-lg sm:text-xl md:text-2xl text-zinc-600 leading-relaxed font-light max-w-2xl px-2">
               Um altar levantado em São José dos Campos focado na adoração, intercessão e ensino do Reino de Deus.
             </p>
           </motion.div>
@@ -51,33 +51,33 @@ export default function CasaDeOracao() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="group relative p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-3xl border border-white/5 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden"
+              className="group relative p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-zinc-100 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden shadow-xl shadow-zinc-200/50"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative z-10">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-black border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform">
-                  <Clock className="w-6 h-6 md:w-8 md:h-8 text-emerald-500" />
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:rotate-3 transition-transform">
+                  <Clock className="w-6 h-6 md:w-8 md:h-8 text-emerald-600" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 font-display">Adoração Sábados</h3>
-                <p className="text-zinc-400 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">Das 10h às 22h. Doze horas de busca contínua onde o fogo não se apaga.</p>
-                <div className="pt-4 md:pt-6 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Horário</span>
-                  <span className="text-sm font-bold text-white">10:00 - 22:00</span>
+                <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4 font-display">Adoração Sábados</h3>
+                <p className="text-zinc-600 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">Das 10h às 22h. Doze horas de busca contínua onde o fogo não se apaga.</p>
+                <div className="pt-4 md:pt-6 border-t border-zinc-50 flex items-center justify-between">
+                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Horário</span>
+                  <span className="text-sm font-bold text-zinc-900">10:00 - 22:00</span>
                 </div>
               </div>
             </motion.div>
 
-            <Link href="/aulas" className="group relative p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-zinc-900/40 backdrop-blur-3xl border border-white/5 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden block">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Link href="/aulas" className="group relative p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] bg-white border border-zinc-100 hover:border-emerald-500/30 transition-all duration-500 overflow-hidden block shadow-xl shadow-zinc-200/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               <div className="relative z-10">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-black border border-white/10 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
-                  <PlayCircle className="w-6 h-6 md:w-8 md:h-8 text-emerald-500" />
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-zinc-50 border border-zinc-100 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 group-hover:-rotate-3 transition-transform">
+                  <PlayCircle className="w-6 h-6 md:w-8 md:h-8 text-emerald-600" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 font-display">Aulas Online</h3>
-                <p className="text-zinc-400 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">Mergulho profundo na Palavra através de nossa plataforma de ensino digital.</p>
-                <div className="pt-4 md:pt-6 border-t border-white/5 flex items-center justify-between">
-                  <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">Acesso</span>
-                  <span className="text-sm font-bold text-white flex items-center gap-2">Disponível 24/7 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                <h3 className="text-2xl md:text-3xl font-bold text-zinc-900 mb-4 font-display">Aulas Online</h3>
+                <p className="text-zinc-600 text-sm md:text-lg leading-relaxed mb-6 md:mb-8">Mergulho profundo na Palavra através de nossa plataforma de ensino digital.</p>
+                <div className="pt-4 md:pt-6 border-t border-zinc-50 flex items-center justify-between">
+                  <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Acesso</span>
+                  <span className="text-sm font-bold text-zinc-900 flex items-center gap-2">Disponível 24/7 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
                 </div>
               </div>
             </Link>
@@ -87,7 +87,7 @@ export default function CasaDeOracao() {
       </section>
 
       {/* Visão 24/7 */}
-      <section className="py-20 md:py-32 bg-black overflow-hidden">
+      <section className="py-20 md:py-32 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
             <motion.div
@@ -97,22 +97,21 @@ export default function CasaDeOracao() {
               className="relative order-last lg:order-first"
             >
               <div className="absolute -left-20 -top-20 w-64 h-64 bg-emerald-500/10 blur-[100px]" />
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 md:mb-8 font-display leading-[0.9]">
+              <h2 className="text-4xl md:text-6xl font-bold text-zinc-900 mb-6 md:mb-8 font-display leading-[0.9]">
                 Visão 24/7
               </h2>
-              <p className="text-zinc-400 text-base md:text-xl mb-8 leading-relaxed font-light">
+              <p className="text-zinc-600 text-base md:text-xl mb-8 leading-relaxed font-light">
                 Acreditamos que a adoração contínua muda a atmosfera de uma cidade. O nosso maior sonho é estabelecer um altar de adoração ininterrupta em São José dos Campos.
               </p>
               
               <div className="space-y-4 md:space-y-6 mb-10 md:mb-12">
                  {[
-                   { icon: Shield, text: 'Vigília espiritual sobre a cidade' },
-                   { icon: Heart, text: 'Sustento para as ações sociais do Jump' },
+                   { icon: ShieldCheck, text: 'Vigília espiritual sobre a cidade' },
                    { icon: Zap, text: 'Lugar de descanso e renovo espiritual' }
                  ].map((li, i) => (
-                   <div key={i} className="flex items-center gap-4 text-zinc-300">
-                      <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0">
-                         <li.icon className="w-5 h-5 text-emerald-500" />
+                   <div key={i} className="flex items-center gap-4 text-zinc-700">
+                      <div className="w-10 h-10 rounded-full bg-zinc-50 flex items-center justify-center border border-zinc-100 shrink-0">
+                         <li.icon className="w-5 h-5 text-emerald-600" />
                       </div>
                       <span className="text-sm md:text-base">{li.text}</span>
                    </div>
@@ -121,7 +120,7 @@ export default function CasaDeOracao() {
 
               <Link
                 href="/voluntario"
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-white text-black font-bold rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-white/5 text-sm md:text-base"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-3 px-8 py-4 bg-zinc-900 text-white font-bold rounded-2xl transition-all hover:scale-105 active:scale-95 shadow-xl shadow-black/10 text-sm md:text-base"
               >
                 Seja um Intercessor <ArrowRight className="w-5 h-5" />
               </Link>
@@ -144,20 +143,20 @@ export default function CasaDeOracao() {
       </section>
 
       {/* Aulas CTA */}
-      <section className="py-20 md:py-32 px-4 border-t border-white/5">
-        <div className="max-w-5xl mx-auto p-8 md:p-24 rounded-[2.5rem] md:rounded-[3.5rem] bg-zinc-950 border border-white/5 text-center relative overflow-hidden">
+      <section className="py-20 md:py-32 px-4 border-t border-zinc-100">
+        <div className="max-w-5xl mx-auto p-8 md:p-24 rounded-[2.5rem] md:rounded-[3.5rem] bg-white border border-zinc-100 text-center relative overflow-hidden shadow-2xl shadow-zinc-200/50">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 blur-[80px]" />
           <div className="relative z-10">
-            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-black border border-emerald-500/20 flex items-center justify-center mx-auto mb-8 md:mb-10 shadow-lg shadow-emerald-500/10">
-               <PlayCircle className="w-8 h-8 md:w-10 md:h-10 text-emerald-500" />
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-zinc-50 border border-emerald-500/10 flex items-center justify-center mx-auto mb-8 md:mb-10 shadow-lg shadow-emerald-500/5">
+               <PlayCircle className="w-8 h-8 md:w-10 md:h-10 text-emerald-600" />
             </div>
-            <h2 className="text-3xl md:text-6xl font-bold text-white mb-6 md:mb-8 font-display">Ensino do Reino</h2>
-            <p className="text-zinc-400 text-base md:text-xl mb-10 md:mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+            <h2 className="text-3xl md:text-6xl font-bold text-zinc-900 mb-6 md:mb-8 font-display">Ensino do Reino</h2>
+            <p className="text-zinc-600 text-base md:text-xl mb-10 md:mb-12 max-w-2xl mx-auto font-light leading-relaxed">
               Acesse nossa plataforma de cursos e mergulhe em módulos preparados para o seu crescimento espiritual e maturidade no Evangelho.
             </p>
             <Link
                href="/aulas"
-               className="inline-flex items-center justify-center w-full sm:w-auto gap-3 px-8 py-4 bg-zinc-900 text-white font-bold rounded-2xl border border-white/10 hover:bg-white hover:text-black transition-all text-sm md:text-base"
+               className="inline-flex items-center justify-center w-full sm:w-auto gap-3 px-8 py-4 bg-zinc-900 text-white font-bold rounded-2xl border border-zinc-800 hover:bg-black transition-all text-sm md:text-base"
             >
               Acessar Aulas <ArrowRight className="w-5 h-5" />
             </Link>

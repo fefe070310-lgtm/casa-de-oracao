@@ -42,30 +42,30 @@ export default function AdminDashboard() {
       icon: Users,
       label: 'Membros Ativos',
       value: data?.stats?.totalMembers || 0,
-      color: '#6C5CE7',
-      bgLight: '#F5F0FF',
+      color: '#EF4444',
+      bgLight: '#FEF2F2',
     },
     {
       icon: Megaphone,
       label: 'Contatos',
       value: data?.stats?.totalLeads || 0,
-      color: '#00B894',
-      bgLight: '#E6FFF9',
+      color: '#F97316',
+      bgLight: '#FFF7ED',
       badge: data?.stats?.pendingLeads > 0 ? `${data?.stats?.pendingLeads} Leads` : null,
     },
     {
       icon: Wallet,
       label: 'Doações',
       value: formatCurrency(data?.stats?.totalRevenue || 0),
-      color: '#E17055',
-      bgLight: '#FFF4F0',
+      color: '#10B981',
+      bgLight: '#ECFDF5',
     },
     {
       icon: Activity,
       label: 'Orações',
       value: data?.stats?.prayerCount || 0,
-      color: '#0984E3',
-      bgLight: '#EDF5FF',
+      color: '#3B82F6',
+      bgLight: '#EFF6FF',
     },
   ];
 
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
             Atividade real do seu banco de dados em tempo real.
           </p>
         </div>
-        <button className="px-5 py-2.5 font-semibold rounded-xl transition-all text-sm" style={{
+        <button className="w-full sm:w-auto px-4 py-2.5 font-bold rounded-xl transition-all text-[11px] uppercase tracking-widest" style={{
           background: 'var(--admin-card)',
           border: '1px solid var(--admin-border)',
           color: 'var(--admin-text-secondary)',
@@ -104,16 +104,16 @@ export default function AdminDashboard() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="rounded-2xl p-5 transition-all cursor-default group"
+            className="rounded-[2rem] p-6 transition-all cursor-default group relative overflow-hidden"
             style={{
               background: 'var(--admin-card)',
               border: '1px solid var(--admin-border)',
               boxShadow: 'var(--admin-shadow-sm)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = 'var(--admin-shadow-md)';
+              e.currentTarget.style.boxShadow = 'var(--admin-shadow-lg)';
               e.currentTarget.style.borderColor = card.color + '40';
-              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.transform = 'translateY(-4px)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.boxShadow = 'var(--admin-shadow-sm)';
@@ -121,26 +121,30 @@ export default function AdminDashboard() {
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            <div className="flex justify-between items-start mb-4">
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-all" style={{
+            <div className="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+               <card.icon className="w-20 h-20 rotate-12" />
+            </div>
+            <div className="flex justify-between items-start mb-6 relative z-10">
+              <div className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all shadow-sm" style={{
                 background: card.bgLight,
                 color: card.color,
               }}>
-                <card.icon className="w-5 h-5" />
+                <card.icon className="w-6 h-6" />
               </div>
               {card.badge && (
-                <span className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider" style={{
+                <span className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest shadow-sm" style={{
                   color: card.color,
                   background: card.bgLight,
+                  border: `1px solid ${card.color}20`
                 }}>
                   {card.badge}
                 </span>
               )}
             </div>
-            <h3 className="text-[11px] font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--admin-text-muted)' }}>
+            <h3 className="text-[11px] font-black uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--admin-text-muted)' }}>
               {card.label}
             </h3>
-            <p className="text-2xl font-bold font-display tracking-tight" style={{ color: 'var(--admin-text-primary)' }}>
+            <p className="text-3xl font-black font-display tracking-tight text-slate-900">
               {card.value}
             </p>
           </motion.div>

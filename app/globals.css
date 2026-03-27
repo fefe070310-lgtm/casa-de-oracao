@@ -16,13 +16,13 @@
 
 @layer base {
   html, body {
-    @apply bg-black text-zinc-100;
+    @apply bg-[#f8f9fa] text-zinc-900;
     overflow-x: hidden;
   }
   
   :root {
-    --plyr-color-main: #ef4444; /* red-500 */
-    --plyr-video-background: #000000;
+    --player-accent: #ef4444;
+    --player-bg: #000000;
   }
 }
 
